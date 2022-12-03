@@ -1,6 +1,7 @@
 package cn.neud.knownact.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,31 +14,27 @@ import java.util.Date;
  * @since 1.0.0 2022-12-03
  */
 @Data
-@TableName("rate")
-public class RateEntity implements Serializable {
+@TableName("feed")
+public class FeedEntity implements Serializable {
 
     /**
-     * 用户id
+     * 
+     */
+	private Long id;
+    /**
+     * 
      */
 	private Long userId;
     /**
-     * 帖子id
+     * 
      */
 	private Long postId;
-    /**
-     * 评分0-5
-     */
-	private Integer rate;
-    /**
-     * 
-     */
-	private Integer like;
+//    /**
+//     *
+//     */
+//	private Long typeId;
     /**
      * 
      */
-	private Integer dislike;
-    /**
-     * 
-     */
-	private Integer favorite;
+	private Double rate;
 }

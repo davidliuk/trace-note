@@ -2,9 +2,11 @@ package cn.neud.knownact.model.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 /**
@@ -15,26 +17,23 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel(value = "")
-public class RateDTO implements Serializable {
+public class FeedDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "用户id")
+	@ApiModelProperty(value = "")
+	private Long id;
+
+	@ApiModelProperty(value = "")
 	private Long userId;
 
-	@ApiModelProperty(value = "帖子id")
+	@ApiModelProperty(value = "")
 	private Long postId;
 
-	@ApiModelProperty(value = "评分0-5")
-	private Integer rate;
+//	@ApiModelProperty(value = "")
+//	private Long typeId;
 
 	@ApiModelProperty(value = "")
-	private Integer like;
-
-	@ApiModelProperty(value = "")
-	private Integer dislike;
-
-	@ApiModelProperty(value = "")
-	private Integer favorite;
+	private Double rate;
 
 
 }

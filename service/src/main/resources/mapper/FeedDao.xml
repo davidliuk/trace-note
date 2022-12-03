@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.neud.knownact.dao.RateDao">
+<mapper namespace="cn.neud.knownact.dao.FeedDao">
 
-    <resultMap type="cn.neud.knownact.model.entity.RateEntity" id="rateMap">
+    <resultMap type="cn.neud.knownact.model.entity.FeedEntity" id="feedMap">
+        <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="postId" column="post_id"/>
+<!--        <result property="typeId" column="type_id"/>-->
         <result property="rate" column="rate"/>
-        <result property="like" column="like"/>
-        <result property="dislike" column="dislike"/>
-        <result property="favorite" column="favorite"/>
     </resultMap>
-
 
 </mapper>

@@ -17,7 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+//import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -48,7 +48,7 @@ public class TypeController {
         @ApiImplicitParam(name = Constant.ORDER_FIELD, value = "排序字段", paramType = "query", dataType="String") ,
         @ApiImplicitParam(name = Constant.ORDER, value = "排序方式，可选值(asc、desc)", paramType = "query", dataType="String")
     })
-    @RequiresPermissions("knownact:type:page")
+    // @RequiresPermissions("knownact:type:page")
     public Result<PageData<TypeDTO>> page(@ApiIgnore @RequestParam Map<String, Object> params){
         PageData<TypeDTO> page = typeService.page(params);
 
@@ -57,7 +57,7 @@ public class TypeController {
 
     @GetMapping("{id}")
     @ApiOperation("信息")
-    @RequiresPermissions("knownact:type:info")
+    // @RequiresPermissions("knownact:type:info")
     public Result<TypeDTO> get(@PathVariable("id") Long id){
         TypeDTO data = typeService.get(id);
 
@@ -67,7 +67,7 @@ public class TypeController {
     @PostMapping
     @ApiOperation("保存")
     @LogOperation("保存")
-    @RequiresPermissions("knownact:type:save")
+    // @RequiresPermissions("knownact:type:save")
     public Result save(@RequestBody TypeDTO dto){
         //效验数据
         ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
@@ -80,7 +80,7 @@ public class TypeController {
     @PutMapping
     @ApiOperation("修改")
     @LogOperation("修改")
-    @RequiresPermissions("knownact:type:update")
+    // @RequiresPermissions("knownact:type:update")
     public Result update(@RequestBody TypeDTO dto){
         //效验数据
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
@@ -93,7 +93,7 @@ public class TypeController {
     @DeleteMapping
     @ApiOperation("删除")
     @LogOperation("删除")
-    @RequiresPermissions("knownact:type:delete")
+    // @RequiresPermissions("knownact:type:delete")
     public Result delete(@RequestBody Long[] ids){
         //效验数据
         AssertUtils.isArrayEmpty(ids, "id");
@@ -106,7 +106,7 @@ public class TypeController {
     @GetMapping("export")
     @ApiOperation("导出")
     @LogOperation("导出")
-    @RequiresPermissions("knownact:type:export")
+    // @RequiresPermissions("knownact:type:export")
     public void export(@ApiIgnore @RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
         List<TypeDTO> list = typeService.list(params);
 

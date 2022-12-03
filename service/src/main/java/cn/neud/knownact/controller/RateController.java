@@ -12,16 +12,18 @@ import cn.neud.knownact.common.validator.group.DefaultGroup;
 import cn.neud.knownact.common.validator.group.UpdateGroup;
 import cn.neud.knownact.model.dto.RateDTO;
 import cn.neud.knownact.model.excel.RateExcel;
+import cn.neud.knownact.service.FeedService;
 import cn.neud.knownact.service.RateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+//import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +41,8 @@ import java.util.Map;
 public class RateController {
     @Autowired
     private RateService rateService;
+    @Resource
+    private FeedService feedService;
 
     @GetMapping("page")
     @ApiOperation("分页")
@@ -48,7 +52,7 @@ public class RateController {
         @ApiImplicitParam(name = Constant.ORDER_FIELD, value = "排序字段", paramType = "query", dataType="String") ,
         @ApiImplicitParam(name = Constant.ORDER, value = "排序方式，可选值(asc、desc)", paramType = "query", dataType="String")
     })
-    @RequiresPermissions("knownact:rate:page")
+    // @RequiresPermissions("knownact:rate:page")
     public Result<PageData<RateDTO>> page(@ApiIgnore @RequestParam Map<String, Object> params){
         PageData<RateDTO> page = rateService.page(params);
 
@@ -57,7 +61,7 @@ public class RateController {
 
     @GetMapping("{id}")
     @ApiOperation("信息")
-    @RequiresPermissions("knownact:rate:info")
+    // @RequiresPermissions("knownact:rate:info")
     public Result<RateDTO> get(@PathVariable("id") Long id){
         RateDTO data = rateService.get(id);
 
@@ -67,12 +71,13 @@ public class RateController {
     @PostMapping
     @ApiOperation("保存")
     @LogOperation("保存")
-    @RequiresPermissions("knownact:rate:save")
-    public Result save(@RequestBody RateDTO dto){
+    // @RequiresPermissions("knownact:rate:save")
+    public Result save(@RequestBody RateDTO dto) throws Exception {
         //效验数据
         ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
 
         rateService.save(dto);
+        feedService.train();
 
         return new Result();
     }
@@ -80,12 +85,13 @@ public class RateController {
     @PutMapping
     @ApiOperation("修改")
     @LogOperation("修改")
-    @RequiresPermissions("knownact:rate:update")
-    public Result update(@RequestBody RateDTO dto){
+    // @RequiresPermissions("knownact:rate:update")
+    public Result update(@RequestBody RateDTO dto) throws Exception {
         //效验数据
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
 
         rateService.update(dto);
+        feedService.train();
 
         return new Result();
     }
@@ -93,7 +99,7 @@ public class RateController {
     @DeleteMapping
     @ApiOperation("删除")
     @LogOperation("删除")
-    @RequiresPermissions("knownact:rate:delete")
+    // @RequiresPermissions("knownact:rate:delete")
     public Result delete(@RequestBody Long[] ids){
         //效验数据
         AssertUtils.isArrayEmpty(ids, "id");
@@ -106,7 +112,7 @@ public class RateController {
     @GetMapping("export")
     @ApiOperation("导出")
     @LogOperation("导出")
-    @RequiresPermissions("knownact:rate:export")
+    // @RequiresPermissions("knownact:rate:export")
     public void export(@ApiIgnore @RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
         List<RateDTO> list = rateService.list(params);
 

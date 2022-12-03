@@ -12,6 +12,7 @@ import cn.neud.knownact.common.validator.group.DefaultGroup;
 import cn.neud.knownact.common.validator.group.UpdateGroup;
 import cn.neud.knownact.model.dto.FollowDTO;
 import cn.neud.knownact.model.excel.FollowExcel;
+import cn.neud.knownact.service.FeedService;
 import cn.neud.knownact.service.FollowService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +41,9 @@ import java.util.Map;
 public class FollowController {
     @Autowired
     private FollowService followService;
+
+    @Resource
+    private FeedService feedService;
 
     @GetMapping("page")
     @ApiOperation("分页")
@@ -68,12 +73,12 @@ public class FollowController {
     @ApiOperation("保存")
     @LogOperation("保存")
     // @RequiresPermissions("knownact:follow:save")
-    public Result save(@RequestBody FollowDTO dto){
+    public Result save(@RequestBody FollowDTO dto) throws Exception {
         //效验数据
         ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
 
         followService.save(dto);
-
+        feedService.train();
         return new Result();
     }
 
@@ -81,12 +86,12 @@ public class FollowController {
     @ApiOperation("修改")
     @LogOperation("修改")
     // @RequiresPermissions("knownact:follow:update")
-    public Result update(@RequestBody FollowDTO dto){
+    public Result update(@RequestBody FollowDTO dto) throws Exception {
         //效验数据
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
 
         followService.update(dto);
-
+        feedService.train();
         return new Result();
     }
 
