@@ -4,6 +4,8 @@ import cn.neud.knownact.model.entity.PostEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
+
 /**
  * 帖子视图
  *

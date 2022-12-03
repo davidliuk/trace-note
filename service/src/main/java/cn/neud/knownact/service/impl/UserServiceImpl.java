@@ -71,7 +71,7 @@ public class UserServiceImpl extends CrudServiceImpl<UserDao, UserEntity, UserDT
         synchronized (userAccount.intern()) {
             // 账户不能重复
             QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("userAccount", userAccount);
+            queryWrapper.eq("account", userAccount);
             long count = userDao.selectCount(queryWrapper);
             if (count > 0) {
                 throw new BusinessException(ErrorCode.PARAMS_ERROR, "账号重复");
@@ -106,8 +106,8 @@ public class UserServiceImpl extends CrudServiceImpl<UserDao, UserEntity, UserDT
         String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
         // 查询用户是否存在
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("userAccount", userAccount);
-        queryWrapper.eq("userPassword", encryptPassword);
+        queryWrapper.eq("account", userAccount);
+        queryWrapper.eq("password", encryptPassword);
         UserEntity user = userDao.selectOne(queryWrapper);
         // 用户不存在
         if (user == null) {

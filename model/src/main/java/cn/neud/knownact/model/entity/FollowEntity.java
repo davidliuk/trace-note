@@ -3,6 +3,7 @@ package cn.neud.knownact.model.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Date;
  */
 @Data
 @TableName("follow")
-public class FollowEntity {
+public class FollowEntity implements Serializable {
 
     /**
      * 关注人

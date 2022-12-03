@@ -8,5 +8,4 @@
         <result property="typeId" column="type_id"/>
     </resultMap>
 
-
 </mapper>
