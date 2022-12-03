@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.neud.knownact.dao.RateDao">
+
+    <resultMap type="cn.neud.knownact.model.entity.RateEntity" id="rateMap">
+        <result property="follower" column="follower"/>
+        <result property="followee" column="followee"/>
+        <result property="rate" column="rate"/>
+        <result property="like" column="like"/>
+        <result property="dislike" column="dislike"/>
+        <result property="favorite" column="favorite"/>
+    </resultMap>
+
+
+</mapper>
