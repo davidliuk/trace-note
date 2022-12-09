@@ -19,7 +19,7 @@ public enum ErrorCode {
     FORBIDDEN_ERROR(40300, "禁止访问"),
     SYSTEM_ERROR(50000, "系统内部异常"),
     OPERATION_ERROR(50001, "操作失败"),
-    INTERNAL_SERVER_ERROR(500, "系统内部异常"),
+    TRAIN_ERROR(50002, "训练失败"),
     NOT_NULL(10001, "非空"),
     REDIS_ERROR(10027, "Redis错误");
 

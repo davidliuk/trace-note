@@ -1,6 +1,9 @@
 package cn.neud.knownact.user.controller;
 
+import cn.neud.knownact.common.annotation.AuthCheck;
 import cn.neud.knownact.common.annotation.LogOperation;
+import cn.neud.knownact.common.exception.BusinessException;
+import cn.neud.knownact.common.exception.ErrorCode;
 import cn.neud.knownact.model.constant.Constant;
 import cn.neud.knownact.model.dto.page.PageData;
 import cn.neud.knownact.common.utils.ExcelUtils;
@@ -27,6 +30,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 /**
@@ -43,6 +48,44 @@ public class RateController {
     private RateService rateService;
     @Resource
     private FeedService feedService;
+
+    private static final ExecutorService REC_TRAIN_EXECUTOR = Executors.newFixedThreadPool(2);
+
+    @AuthCheck
+    @GetMapping("like/{id}")
+    @ApiOperation("点赞")
+    // @RequiresPermissions("knownact:follow:info")
+    public Result like(@PathVariable("id") Long id){
+        boolean set = rateService.like(id);
+        if (!set) {
+            return new Result().ok("已取消点赞");
+        }
+        return new Result().ok("已成功点赞");
+    }
+
+    @AuthCheck
+    @GetMapping("dislike/{id}")
+    @ApiOperation("点踩")
+    // @RequiresPermissions("knownact:follow:info")
+    public Result dislike(@PathVariable("id") Long id){
+        boolean set = rateService.dislike(id);
+        if (!set) {
+            return new Result().ok("已取消点踩");
+        }
+        return new Result().ok("已成功点踩");
+    }
+
+    @AuthCheck
+    @GetMapping("favorite/{id}")
+    @ApiOperation("收藏")
+    // @RequiresPermissions("knownact:follow:info")
+    public Result favorite(@PathVariable("id") Long id){
+        boolean set = rateService.favorite(id);
+        if (!set) {
+            return new Result().ok("已取消收藏");
+        }
+        return new Result().ok("已成功收藏");
+    }
 
     @GetMapping("page")
     @ApiOperation("分页")
@@ -77,7 +120,14 @@ public class RateController {
         ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
 
         rateService.save(dto);
-        feedService.train();
+
+        REC_TRAIN_EXECUTOR.submit(() -> {
+            try {
+                feedService.train();
+            } catch (Exception e) {
+                throw new BusinessException(ErrorCode.TRAIN_ERROR);
+            }
+        });
 
         return new Result();
     }
@@ -86,12 +136,19 @@ public class RateController {
     @ApiOperation("修改")
     @LogOperation("修改")
     // @RequiresPermissions("knownact:rate:update")
-    public Result update(@RequestBody RateDTO dto) throws Exception {
+    public Result update(@RequestBody RateDTO dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
 
         rateService.update(dto);
-        feedService.train();
+
+        REC_TRAIN_EXECUTOR.submit(() -> {
+            try {
+                feedService.train();
+            } catch (Exception e) {
+                throw new BusinessException(ErrorCode.TRAIN_ERROR);
+            }
+        });
 
         return new Result();
     }

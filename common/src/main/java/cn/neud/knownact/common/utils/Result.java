@@ -57,8 +57,8 @@ public class Result<T> implements Serializable {
     }
 
     public Result<T> error() {
-        this.code = ErrorCode.INTERNAL_SERVER_ERROR.getCode();
-        this.msg = ErrorCode.INTERNAL_SERVER_ERROR.getMessage();
+        this.code = ErrorCode.SYSTEM_ERROR.getCode();
+        this.msg = ErrorCode.SYSTEM_ERROR.getMessage();
         return this;
     }
 
@@ -81,7 +81,7 @@ public class Result<T> implements Serializable {
     }
 
     public Result<T> error(String msg) {
-        this.code = ErrorCode.INTERNAL_SERVER_ERROR.getCode();
+        this.code = ErrorCode.SYSTEM_ERROR.getCode();
         this.msg = msg;
         return this;
     }

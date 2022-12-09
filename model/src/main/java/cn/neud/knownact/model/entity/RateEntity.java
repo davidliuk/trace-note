@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 
@@ -31,13 +30,45 @@ public class RateEntity implements Serializable {
     /**
      * 
      */
-	private Integer like;
+	private Integer likes = 0;
     /**
      * 
      */
-	private Integer dislike;
+	private Integer dislike = 0;
     /**
      * 
      */
-	private Integer favorite;
+	private Integer favorite = 0;
+
+    public int updateRate() {
+        this.rate = 2 + this.likes + this.favorite - dislike;
+        return rate;
+    }
+    
+    public boolean switchLike() {
+        if (likes == 0) {
+            likes = 1;
+            return true;
+        }
+        likes = 0;
+        return false;
+    }
+    
+    public boolean switchDislike() {
+        if (dislike == 0) {
+            dislike = 1;
+            return true;
+        }
+        dislike = 0;
+        return false;
+    }
+
+    public boolean switchFavorite() {
+        if (favorite == 0) {
+            favorite = 1;
+            return true;
+        }
+        favorite = 0;
+        return false;
+    }
 }

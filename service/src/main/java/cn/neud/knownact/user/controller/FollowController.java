@@ -1,5 +1,6 @@
 package cn.neud.knownact.user.controller;
 
+import cn.neud.knownact.common.annotation.AuthCheck;
 import cn.neud.knownact.common.annotation.LogOperation;
 import cn.neud.knownact.model.constant.Constant;
 import cn.neud.knownact.model.dto.page.PageData;
@@ -60,13 +61,25 @@ public class FollowController {
         return new Result<PageData<FollowDTO>>().ok(page);
     }
 
+//    @GetMapping("{id}")
+//    @ApiOperation("信息")
+//    // @RequiresPermissions("knownact:follow:info")
+//    public Result<FollowDTO> get(@PathVariable("id") Long id){
+//        FollowDTO data = followService.get(id);
+//
+//        return new Result<FollowDTO>().ok(data);
+//    }
+
+    @AuthCheck
     @GetMapping("{id}")
     @ApiOperation("信息")
     // @RequiresPermissions("knownact:follow:info")
-    public Result<FollowDTO> get(@PathVariable("id") Long id){
-        FollowDTO data = followService.get(id);
-
-        return new Result<FollowDTO>().ok(data);
+    public Result set(@PathVariable("id") Long id){
+        boolean set = followService.set(id);
+        if (!set) {
+            return new Result().ok("已取消订阅");
+        }
+        return new Result().ok("已成功订阅");
     }
 
     @PostMapping

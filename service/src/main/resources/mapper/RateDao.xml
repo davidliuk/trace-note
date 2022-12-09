@@ -7,7 +7,7 @@
         <result property="userId" column="user_id"/>
         <result property="postId" column="post_id"/>
         <result property="rate" column="rate"/>
-        <result property="like" column="like"/>
+        <result property="likes" column="likes"/>
         <result property="dislike" column="dislike"/>
         <result property="favorite" column="favorite"/>
     </resultMap>
