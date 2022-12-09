@@ -42,7 +42,7 @@ import java.util.concurrent.Executors;
  */
 @RestController
 @RequestMapping("knownact/rate")
-@Api(tags="")
+@Api(tags="Rate接口")
 public class RateController {
     @Autowired
     private RateService rateService;
@@ -57,6 +57,15 @@ public class RateController {
     // @RequiresPermissions("knownact:follow:info")
     public Result like(@PathVariable("id") Long id){
         boolean set = rateService.like(id);
+
+        REC_TRAIN_EXECUTOR.submit(() -> {
+            try {
+                feedService.train();
+            } catch (Exception e) {
+                throw new BusinessException(ErrorCode.TRAIN_ERROR);
+            }
+        });
+
         if (!set) {
             return new Result().ok("已取消点赞");
         }
@@ -69,6 +78,15 @@ public class RateController {
     // @RequiresPermissions("knownact:follow:info")
     public Result dislike(@PathVariable("id") Long id){
         boolean set = rateService.dislike(id);
+
+        REC_TRAIN_EXECUTOR.submit(() -> {
+            try {
+                feedService.train();
+            } catch (Exception e) {
+                throw new BusinessException(ErrorCode.TRAIN_ERROR);
+            }
+        });
+
         if (!set) {
             return new Result().ok("已取消点踩");
         }
@@ -81,6 +99,15 @@ public class RateController {
     // @RequiresPermissions("knownact:follow:info")
     public Result favorite(@PathVariable("id") Long id){
         boolean set = rateService.favorite(id);
+
+        REC_TRAIN_EXECUTOR.submit(() -> {
+            try {
+                feedService.train();
+            } catch (Exception e) {
+                throw new BusinessException(ErrorCode.TRAIN_ERROR);
+            }
+        });
+
         if (!set) {
             return new Result().ok("已取消收藏");
         }
