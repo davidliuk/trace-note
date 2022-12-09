@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.neud.knownact.dao.FollowDao">
+<mapper namespace="cn.neud.knownact.user.dao.FollowDao">
 
     <resultMap type="cn.neud.knownact.model.entity.FollowEntity" id="followMap">
         <result property="follower" column="follower"/>

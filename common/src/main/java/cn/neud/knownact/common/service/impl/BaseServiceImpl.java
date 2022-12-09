@@ -1,7 +1,7 @@
 package cn.neud.knownact.common.service.impl;
 
-import cn.neud.knownact.common.constant.Constant;
-import cn.neud.knownact.common.page.PageData;
+import cn.neud.knownact.model.constant.Constant;
+import cn.neud.knownact.model.dto.page.PageData;
 import cn.neud.knownact.common.service.BaseService;
 import cn.neud.knownact.common.utils.ConvertUtils;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;

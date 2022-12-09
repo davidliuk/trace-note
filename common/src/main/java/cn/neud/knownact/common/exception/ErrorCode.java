@@ -20,7 +20,8 @@ public enum ErrorCode {
     SYSTEM_ERROR(50000, "系统内部异常"),
     OPERATION_ERROR(50001, "操作失败"),
     INTERNAL_SERVER_ERROR(500, "系统内部异常"),
-    NOT_NULL(10001, "非空");
+    NOT_NULL(10001, "非空"),
+    REDIS_ERROR(10027, "Redis错误");
 
     /**
      * 状态码

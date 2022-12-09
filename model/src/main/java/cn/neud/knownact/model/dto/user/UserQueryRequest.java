@@ -1,6 +1,6 @@
 package cn.neud.knownact.model.dto.user;
 
-import cn.neud.knownact.common.page.PageRequest;
+import cn.neud.knownact.model.dto.page.PageRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

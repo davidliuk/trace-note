@@ -1,6 +1,6 @@
 package cn.neud.knownact.common.service.impl;
 
-import cn.neud.knownact.common.page.PageData;
+import cn.neud.knownact.model.dto.page.PageData;
 import cn.neud.knownact.common.service.CrudService;
 import cn.neud.knownact.common.utils.ConvertUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

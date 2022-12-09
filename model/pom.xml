@@ -23,11 +23,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>cn.neud</groupId>
-            <artifactId>common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>cn.afterturn</groupId>
             <artifactId>easypoi-annotation</artifactId>
             <version>${easypoi.version}</version>
