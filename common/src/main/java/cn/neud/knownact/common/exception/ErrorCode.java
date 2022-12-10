@@ -21,6 +21,8 @@ public enum ErrorCode {
     OPERATION_ERROR(50001, "操作失败"),
     TRAIN_ERROR(50002, "训练失败"),
     NOT_NULL(10001, "非空"),
+    UPLOAD_FILE_EMPTY(10019, "上传文件为空"),
+    OSS_UPLOAD_FILE_ERROR(10024, "上传文件错误"),
     REDIS_ERROR(10027, "Redis错误");
 
     /**

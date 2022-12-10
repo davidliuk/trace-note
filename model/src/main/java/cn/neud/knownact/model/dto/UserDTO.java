@@ -7,6 +7,8 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
+import static cn.neud.knownact.model.constant.UserConstant.ADMIN_ROLE;
+
 
 /**
  * 
@@ -49,5 +51,7 @@ public class UserDTO implements Serializable {
 	@ApiModelProperty(value = "")
 	private Integer isDeleted;
 
-
+	public boolean isAdmin() {
+		return ADMIN_ROLE.equals(this.getRole());
+	}
 }

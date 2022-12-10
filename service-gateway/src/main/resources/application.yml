@@ -1,0 +1,61 @@
+#默认使用配置
+spring:
+  profiles:
+    active: dev
+
+server:
+  port: 8080
+
+---
+
+#开发配置
+spring:
+  profiles: dev
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 101.43.31.212:8849
+    gateway:
+      routes:
+        - id: knownact-user
+          uri: lb://knownact-user
+          predicates:
+            - Path=/api/user/**
+        - id: knownact-post
+          uri: lb://knownact-post
+          predicates:
+            - Path=/api/post/**
+        - id: knownact-feed
+          uri: lb://knownact-feed
+          predicates:
+            - Path=/api/feed/**
+        - id: knownact-oss
+          uri: lb://knownact-oss
+          predicates:
+            - Path=/api/oss/**
+        - id: knownact-sms
+          uri: lb://knownact-sms
+          predicates:
+            - Path=/api/sms/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            #            allowedOrigins: "*"
+            allowedMethods:
+              - "GET"
+              - "POST"
+              - "DELETE"
+              - "PUT"
+              - "OPTIONS"
+            allowedHeaders: "*"
+            allowCredentials: true
+            max-age: 360000
+        add-to-simple-url-handler-mapping: true  # 解决option的跨域问题
+      httpclient:
+        connect-timeout: 20000
+        response-timeout: 20s
+#server:
+#  netty:
+#    connection-timeout: 10000
