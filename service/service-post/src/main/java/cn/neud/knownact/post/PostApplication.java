@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-@MapperScan("cn.neud.knownact.user.dao")
+@MapperScan("cn.neud.knownact.post.dao")
 @ComponentScan(basePackages = {"cn.neud.knownact.common", "cn.neud.knownact.user"})
 public class PostApplication {
 

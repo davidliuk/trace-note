@@ -1,5 +1,6 @@
 package cn.neud.knownact.sms;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -11,7 +12,6 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-@ComponentScan({"springfox.documentation.schema"})
 @ComponentScan(basePackages = {"cn.neud.knownact.common", "cn.neud.knownact.sms"})
 public class SMSApplication extends SpringBootServletInitializer {
 

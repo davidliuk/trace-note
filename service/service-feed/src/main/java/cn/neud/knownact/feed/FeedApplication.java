@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-@MapperScan("cn.neud.knownact.user.dao")
+@MapperScan("cn.neud.knownact.feed.dao")
 @ComponentScan(basePackages = {"cn.neud.knownact.common", "cn.neud.knownact.feed"})
 public class FeedApplication {
 
