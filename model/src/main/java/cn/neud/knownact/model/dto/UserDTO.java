@@ -37,10 +37,22 @@ public class UserDTO implements Serializable {
 	private String nickname;
 
 	@ApiModelProperty(value = "")
-	private String icon;
+	private String avatar;
 
 	@ApiModelProperty(value = "")
 	private String role;
+	/**
+	 *
+	 */
+	private Long followeeCount;
+	/**
+	 *
+	 */
+	private Long followerCount;
+	/**
+	 *
+	 */
+	private Long postArticleCount;
 
 	@ApiModelProperty(value = "")
 	private Date createTime;

@@ -34,6 +34,9 @@ public class PostDTO implements Serializable {
 	@ApiModelProperty(value = "")
 	private String brief;
 
+	@ApiModelProperty(value = "封面图片")
+	private String coverImage;
+
 	@ApiModelProperty(value = "")
 	private Date createTime;
 

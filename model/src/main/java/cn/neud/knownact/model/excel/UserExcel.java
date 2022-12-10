@@ -24,7 +24,7 @@ public class UserExcel {
     @Excel(name = "")
     private String nickname;
     @Excel(name = "")
-    private String icon;
+    private String avatar;
     @Excel(name = "")
     private String role;
     @Excel(name = "")

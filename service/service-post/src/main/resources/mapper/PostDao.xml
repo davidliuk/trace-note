@@ -9,6 +9,7 @@
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="brief" column="brief"/>
+        <result property="coverImage" column="cover_image"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
         <result property="likes" column="likes"/>

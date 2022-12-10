@@ -37,6 +37,10 @@ public class PostEntity implements Serializable {
      */
     private String brief;
     /**
+     *
+     */
+    private String coverImage;
+    /**
      * 
      */
 	private Date createTime;

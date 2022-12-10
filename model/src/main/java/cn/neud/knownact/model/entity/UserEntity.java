@@ -39,11 +39,23 @@ public class UserEntity implements Serializable {
     /**
      * 
      */
-	private String icon;
+	private String avatar;
     /**
      * 
      */
 	private String role;
+    /**
+     *
+     */
+    private Long followeeCount;
+    /**
+     *
+     */
+    private Long followerCount;
+    /**
+     *
+     */
+    private Long postArticleCount;
     /**
      * 
      */
