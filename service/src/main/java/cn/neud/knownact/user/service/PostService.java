@@ -23,4 +23,13 @@ public interface PostService extends CrudService<PostEntity, PostDTO> {
 
 
     List<PostEntity> list(QueryWrapper<PostEntity> queryWrapper);
+
+
+    long like(Long postId, boolean asc);
+
+
+    long dislike(Long postId, boolean asc);
+
+
+    long favorite(Long postId, boolean asc);
 }

@@ -32,13 +32,16 @@ public class PostDTO implements Serializable {
 	private String content;
 
 	@ApiModelProperty(value = "")
+	private String brief;
+
+	@ApiModelProperty(value = "")
 	private Date createTime;
 
 	@ApiModelProperty(value = "")
 	private Date updateTime;
 
 	@ApiModelProperty(value = "")
-	private Long like;
+	private Long likes;
 
 	@ApiModelProperty(value = "")
 	private Long dislike;
@@ -52,5 +55,7 @@ public class PostDTO implements Serializable {
 	@ApiModelProperty(value = "")
 	private Integer isDeleted;
 
+	@ApiModelProperty(value = "当前用户的评分状态")
+	private RateDTO rate;
 
 }

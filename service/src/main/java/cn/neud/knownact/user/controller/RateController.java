@@ -55,8 +55,8 @@ public class RateController {
     @GetMapping("like/{id}")
     @ApiOperation("点赞")
     // @RequiresPermissions("knownact:follow:info")
-    public Result like(@PathVariable("id") Long id){
-        boolean set = rateService.like(id);
+    public Result<Long> like(@PathVariable("id") Long id){
+        long count = rateService.like(id);
 
         REC_TRAIN_EXECUTOR.submit(() -> {
             try {
@@ -66,18 +66,15 @@ public class RateController {
             }
         });
 
-        if (!set) {
-            return new Result().ok("已取消点赞");
-        }
-        return new Result().ok("已成功点赞");
+        return new Result<Long>().ok(count);
     }
 
     @AuthCheck
     @GetMapping("dislike/{id}")
     @ApiOperation("点踩")
     // @RequiresPermissions("knownact:follow:info")
-    public Result dislike(@PathVariable("id") Long id){
-        boolean set = rateService.dislike(id);
+    public Result<Long> dislike(@PathVariable("id") Long id){
+        long count = rateService.dislike(id);
 
         REC_TRAIN_EXECUTOR.submit(() -> {
             try {
@@ -87,18 +84,15 @@ public class RateController {
             }
         });
 
-        if (!set) {
-            return new Result().ok("已取消点踩");
-        }
-        return new Result().ok("已成功点踩");
+        return new Result<Long>().ok(count);
     }
 
     @AuthCheck
     @GetMapping("favorite/{id}")
     @ApiOperation("收藏")
     // @RequiresPermissions("knownact:follow:info")
-    public Result favorite(@PathVariable("id") Long id){
-        boolean set = rateService.favorite(id);
+    public Result<Long> favorite(@PathVariable("id") Long id){
+        long count = rateService.favorite(id);
 
         REC_TRAIN_EXECUTOR.submit(() -> {
             try {
@@ -108,10 +102,7 @@ public class RateController {
             }
         });
 
-        if (!set) {
-            return new Result().ok("已取消收藏");
-        }
-        return new Result().ok("已成功收藏");
+        return new Result<Long>().ok(count);
     }
 
     @GetMapping("page")

@@ -28,7 +28,7 @@ public class RateDTO implements Serializable {
 	private Integer rate;
 
 	@ApiModelProperty(value = "")
-	private Integer like;
+	private Integer likes;
 
 	@ApiModelProperty(value = "")
 	private Integer dislike;

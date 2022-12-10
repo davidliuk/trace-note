@@ -51,11 +51,13 @@ public class FeedServiceImpl extends CrudServiceImpl<FeedDao, FeedEntity, FeedDT
     public void train() throws Exception {
         Configuration conf = LibrecConfig.getConfiguration();
         JDBCDataModel dataModel = new JDBCDataModel(conf);
-        dataModel.buildDataModel();
 
         System.out.println("===================");
+        System.out.println(conf.get("data.model.splitter"));
+        System.out.println(conf.get("data.appender.class"));
         System.out.println(conf.get("data.appender.class"));
         System.out.println("===================");
+        dataModel.buildDataModel();
 
         // build recommender context
         RecommenderContext context = new RecommenderContext(conf, dataModel);

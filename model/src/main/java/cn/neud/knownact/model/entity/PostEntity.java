@@ -33,6 +33,10 @@ public class PostEntity implements Serializable {
      */
 	private String content;
     /**
+     *
+     */
+    private String brief;
+    /**
      * 
      */
 	private Date createTime;
@@ -43,15 +47,15 @@ public class PostEntity implements Serializable {
     /**
      * 
      */
-	private Long like;
+	private Long likes = 0L;
     /**
      * 
      */
-	private Long dislike;
+	private Long dislike = 0L;
     /**
      * 
      */
-	private Long favorite;
+	private Long favorite = 0L;
     /**
      * 
      */
@@ -59,5 +63,20 @@ public class PostEntity implements Serializable {
     /**
      * 
      */
-	private Integer isDeleted;
+	private Integer isDeleted = 0;
+
+    public long like(boolean asc) {
+        likes += asc? 1: -1;
+        return likes;
+    }
+
+    public long dislike(boolean asc) {
+        dislike += asc? 1: -1;
+        return dislike;
+    }
+
+    public long favorite(boolean asc) {
+        favorite += asc? 1: -1;
+        return favorite;
+    }
 }

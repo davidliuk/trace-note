@@ -8,9 +8,10 @@
         <result property="userId" column="user_id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
+        <result property="brief" column="brief"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
-        <result property="like" column="like"/>
+        <result property="likes" column="likes"/>
         <result property="dislike" column="dislike"/>
         <result property="favorite" column="favorite"/>
         <result property="reviewStatus" column="review_status"/>

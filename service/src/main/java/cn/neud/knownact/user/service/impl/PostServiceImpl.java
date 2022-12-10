@@ -63,4 +63,28 @@ public class PostServiceImpl extends CrudServiceImpl<PostDao, PostEntity, PostDT
     public List<PostEntity> list(QueryWrapper<PostEntity> queryWrapper) {
         return baseDao.selectList(queryWrapper);
     }
+
+    @Override
+    public long like(Long postId, boolean asc) {
+        PostEntity post = baseDao.selectById(postId);
+        post.like(asc);
+        baseDao.updateById(post);
+        return post.getLikes();
+    }
+
+    @Override
+    public long dislike(Long postId, boolean asc) {
+        PostEntity post = baseDao.selectById(postId);
+        post.dislike(asc);
+        baseDao.updateById(post);
+        return post.getDislike();
+    }
+
+    @Override
+    public long favorite(Long postId, boolean asc) {
+        PostEntity post = baseDao.selectById(postId);
+        post.favorite(asc);
+        baseDao.updateById(post);
+        return post.getFavorite();
+    }
 }

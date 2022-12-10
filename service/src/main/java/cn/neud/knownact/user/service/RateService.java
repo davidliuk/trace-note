@@ -12,7 +12,7 @@ import cn.neud.knownact.model.entity.RateEntity;
  */
 public interface RateService extends CrudService<RateEntity, RateDTO> {
 
-    boolean like(Long postId);
-    boolean dislike(Long postId);
-    boolean favorite(Long postId);
+    long like(Long postId);
+    long dislike(Long postId);
+    long favorite(Long postId);
 }
