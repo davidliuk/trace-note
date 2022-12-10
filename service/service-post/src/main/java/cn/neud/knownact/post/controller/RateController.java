@@ -16,12 +16,13 @@ import cn.neud.knownact.common.validator.group.UpdateGroup;
 import cn.neud.knownact.model.dto.RateDTO;
 import cn.neud.knownact.model.excel.RateExcel;
 import cn.neud.knownact.post.service.RateService;
-import cn.neud.knownact.user.client.FeedFeignClient;
+import cn.neud.knownact.feed.client.FeedFeignClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -40,7 +41,8 @@ import java.util.concurrent.Executors;
  * @since 1.0.0 2022-12-02
  */
 @RestController
-@RequestMapping("knownact/rate")
+@RequestMapping("/rate")
+@Slf4j
 @Api(tags="Rate接口")
 public class RateController {
     @Autowired

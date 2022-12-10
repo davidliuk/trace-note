@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = "cn.neud.knownact")
 @MapperScan("cn.neud.knownact.oss.dao")
 @ComponentScan(basePackages = {"cn.neud.knownact.common", "cn.neud.knownact.oss"})
 public class OSSApplication extends SpringBootServletInitializer {

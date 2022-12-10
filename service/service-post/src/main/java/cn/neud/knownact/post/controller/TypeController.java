@@ -34,7 +34,7 @@ import java.util.Map;
  * @since 1.0.0 2022-12-02
  */
 @RestController
-@RequestMapping("knownact/type")
+@RequestMapping("/type")
 @Api(tags="")
 public class TypeController {
     @Autowired

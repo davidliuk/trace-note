@@ -13,7 +13,7 @@ import cn.neud.knownact.common.validator.group.DefaultGroup;
 import cn.neud.knownact.common.validator.group.UpdateGroup;
 import cn.neud.knownact.model.dto.FollowDTO;
 import cn.neud.knownact.model.excel.FollowExcel;
-import cn.neud.knownact.user.client.FeedFeignClient;
+import cn.neud.knownact.feed.client.FeedFeignClient;
 import cn.neud.knownact.user.service.FollowService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

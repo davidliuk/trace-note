@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @Repository
 public interface SMSFeignClient {
 
-    @GetMapping("/api/sms/code")
+    @GetMapping("/api/sms/mail/code")
     @ApiOperation("邮箱获取验证码")
     @LogOperation("邮箱获取验证码")
     public Result loginByEmail(@RequestBody UserEmailDTO userEmailDTO);

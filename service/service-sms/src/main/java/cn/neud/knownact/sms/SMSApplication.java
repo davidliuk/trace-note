@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = "cn.neud.knownact")
 @ComponentScan(basePackages = {"cn.neud.knownact.common", "cn.neud.knownact.sms"})
 public class SMSApplication extends SpringBootServletInitializer {
 

@@ -1,4 +1,4 @@
-package cn.neud.knownact.user.client;
+package cn.neud.knownact.feed.client;
 
 import cn.neud.knownact.common.utils.Result;
 import io.swagger.annotations.ApiOperation;

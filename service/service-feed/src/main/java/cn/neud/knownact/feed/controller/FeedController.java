@@ -35,7 +35,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/feed")
-@Api(tags="")
+@Api(tags="Feed流")
 public class FeedController {
     @Autowired
     private FeedService feedService;

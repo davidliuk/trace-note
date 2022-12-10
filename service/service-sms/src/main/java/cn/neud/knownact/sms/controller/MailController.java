@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("sms/mail")
+@RequestMapping("/mail")
 @Api(tags = "sms")
 public class MailController {
 
