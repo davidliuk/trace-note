@@ -2,6 +2,7 @@ package cn.neud.knownact.user.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.neud.knownact.common.annotation.LogOperation;
 import cn.neud.knownact.common.utils.Result;
 import cn.neud.knownact.common.exception.ErrorCode;
 import cn.neud.knownact.model.dto.user.UserDTO;
@@ -16,6 +17,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import cn.neud.knownact.model.dto.page.DeleteRequest;
 import cn.neud.knownact.common.utils.ResultUtils;
 import cn.neud.knownact.common.exception.BusinessException;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -185,8 +187,10 @@ public class UserController {
      * @param id
      * @return
      */
-    @GetMapping("/get")
-    public Result<UserVO> getUserById(Long id) {
+    @GetMapping("/get/{id}")
+    @ApiOperation("根据ID获取获取用户视图")
+    @LogOperation("根据ID获取获取用户视图")
+    public Result<UserVO> getUserById(@PathVariable("id") Long id) {
         if (id <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }

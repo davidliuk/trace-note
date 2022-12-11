@@ -41,6 +41,9 @@ public class PostVO extends PostEntity {
     private static final long serialVersionUID = 1L;
 
     public void setRate(RateDTO rate) {
+        if (rate == null) {
+            return;
+        }
         hasLike = rate.getLikes() == 1;
         hasDislike = rate.getDislike() == 1;
         hasFavorite = rate.getFavorite() == 1;

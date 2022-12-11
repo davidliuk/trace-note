@@ -25,6 +25,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -73,19 +74,29 @@ public class PostController {
     })
     // @RequiresPermissions("knownact:belong:page")
     public Result<PageData<PostVO>> page(@ApiIgnore @RequestParam Map<String, Object> params) {
+        Map<String, Object> origin = new HashedMap<>(params);
         try {
-            int size = (int) params.get(Constant.LIMIT) / 2;
-            params.put(Constant.LIMIT, size);
+            // 尝试推荐一半内容是训练出的feed，一半内容是按时间排序出来的内容，来摆脱信息茧房
+            int size = Integer.parseInt((String) params.get(Constant.LIMIT));
+            params.put(Constant.LIMIT, String.valueOf(size / 2));
+            Map<String, Object> two = new HashedMap<>(params);
+            List<Long> feeds = feedFeignClient.page(two).getData().getList().stream().map(FeedDTO::getPostId).collect(Collectors.toList());
+            System.out.println(feeds);
+            params.put(Constant.LIMIT, String.valueOf(size - feeds.size()));
             List<Long> posts = postService.page(params).getList().stream().map(PostDTO::getId).collect(Collectors.toList());
-            List<Long> feeds = feedFeignClient.page(params).getData().getList().stream().map(FeedDTO::getPostId).collect(Collectors.toList());
+            System.out.println(posts);
             posts.addAll(feeds);
             List<PostVO> list = posts.stream().map(id -> getPostById(id).getData()).collect(Collectors.toList());
-            PageData<PostVO> page = new PageData<>(list, size * 2L);
+            System.out.println(list);
+            PageData<PostVO> page = new PageData<>(list, list.size());
             return new Result<PageData<PostVO>>().ok(page);
         } catch (Exception e) {
-            PageData<PostDTO> posts = postService.page(params);
+            System.out.println(origin);
+            System.out.println(origin.keySet());
+            System.out.println(origin.values());
+            PageData<PostDTO> posts = postService.page(origin);
             List<PostVO> list = posts.getList().stream().map(post -> getPostById(post.getId()).getData()).collect(Collectors.toList());
-            PageData<PostVO> page = new PageData<>(list, (int) params.get(Constant.LIMIT));
+            PageData<PostVO> page = new PageData<>(list, Integer.parseInt((String) origin.get(Constant.LIMIT)));
             return new Result<PageData<PostVO>>().ok(page);
         }
     }
@@ -192,8 +203,12 @@ public class PostController {
         PostEntity post = postService.selectById(id);
         PostVO postVO = new PostVO();
         BeanUtils.copyProperties(post, postVO);
-        postVO.setUserVO(userFeignClient.getUserById(post.getUserId()).getData());
-        postVO.setTags(tagService.getTags(post.getId()));
+        try {
+            postVO.setUserVO(userFeignClient.getUserById(post.getUserId()).getData());
+            postVO.setTags(tagService.getTags(post.getId()));
+        } catch (Exception e) {
+
+        }
         if (StpUtil.isLogin()) {
             long userId = StpUtil.getLoginIdAsLong();
             postVO.setRate(rateService.get(userId, id));

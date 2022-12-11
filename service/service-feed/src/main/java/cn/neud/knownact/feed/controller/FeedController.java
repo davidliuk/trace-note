@@ -48,6 +48,9 @@ public class FeedController {
     })
     // @RequiresPermissions("knownact:feed:page")
     public Result<PageData<FeedDTO>> page(@ApiIgnore @RequestParam Map<String, Object> params) {
+        System.out.println(params);
+        System.out.println(params.keySet());
+        System.out.println(params.values());
         PageData<FeedDTO> page = feedService.page(params);
 
         return new Result<PageData<FeedDTO>>().ok(page);
