@@ -1,5 +1,6 @@
 package cn.neud.knownact.user.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.neud.knownact.common.utils.Result;
 import cn.neud.knownact.common.exception.ErrorCode;
 import cn.neud.knownact.model.dto.UserDTO;
@@ -88,6 +89,7 @@ public class UserController {
      * @param request
      * @return
      */
+    @SaCheckLogin
     @PostMapping("/logout")
     public Result<Boolean> userLogout(HttpServletRequest request) {
         if (request == null) {
@@ -103,6 +105,7 @@ public class UserController {
      * @param request
      * @return
      */
+    @SaCheckLogin
     @GetMapping("/get/login")
     public Result<UserDTO> getLoginUser(HttpServletRequest request) {
         UserEntity user = userService.getLoginUser(request);

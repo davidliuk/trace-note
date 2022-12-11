@@ -50,7 +50,7 @@ public class FeedServiceImpl extends CrudServiceImpl<FeedDao, FeedEntity, FeedDT
         try {
             JDBCDataModel dataModel = new JDBCDataModel(conf);
             System.out.println("===================");
-
+            System.out.println("Start Training Data Model");
             System.out.println("===================");
             dataModel.buildDataModel();
 
@@ -86,6 +86,7 @@ public class FeedServiceImpl extends CrudServiceImpl<FeedDao, FeedEntity, FeedDT
             throw new BusinessException(ErrorCode.TRAIN_ERROR);
         } finally {
             conf.setBoolean("data.convert.read.ready", false);
+            conf.setBoolean("data.appender.read.ready", false);
         }
     }
 

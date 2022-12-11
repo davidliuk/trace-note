@@ -1,15 +1,18 @@
 package cn.neud.knownact.common.config;
 
 import cn.dev33.satoken.config.SaTokenConfig;
+import cn.dev33.satoken.interceptor.SaInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * Sa-Token 配置类
  */
 @Configuration
-public class SaTokenConfigure {
+public class SaTokenConfigure implements WebMvcConfigurer {
     // Sa-Token 参数配置，参考文档：https://sa-token.cc
     // 此配置会覆盖 application.yml 中的配置
     @Bean
@@ -24,5 +27,12 @@ public class SaTokenConfigure {
         config.setTokenStyle("uuid");               // token风格
         config.setIsLog(false);                     // 是否输出操作日志
         return config;
+    }
+
+    // 注册 Sa-Token 拦截器，打开注解式鉴权功能
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        // 注册 Sa-Token 拦截器，打开注解式鉴权功能
+        registry.addInterceptor(new SaInterceptor()).addPathPatterns("/**");
     }
 }

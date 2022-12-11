@@ -7,10 +7,12 @@ import cn.neud.knownact.user.dao.UserDao;
 import cn.neud.knownact.model.dto.UserDTO;
 import cn.neud.knownact.model.entity.UserEntity;
 import cn.neud.knownact.user.service.UserService;
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import cn.neud.knownact.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -35,6 +37,9 @@ public class UserServiceImpl extends CrudServiceImpl<UserDao, UserEntity, UserDT
 
     @Resource
     private UserDao userDao;
+
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 盐值，混淆密码
@@ -114,8 +119,9 @@ public class UserServiceImpl extends CrudServiceImpl<UserDao, UserEntity, UserDT
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户不存在或密码错误");
         }
         // 3. 记录用户的登录态
-        request.getSession().setAttribute(USER_LOGIN_STATE, user);
+//        request.getSession().setAttribute(USER_LOGIN_STATE, user);
         StpUtil.login(user.getId());
+        redisTemplate.opsForValue().set(String.valueOf(user.getId()), user);
         return user;
     }
 
@@ -128,17 +134,20 @@ public class UserServiceImpl extends CrudServiceImpl<UserDao, UserEntity, UserDT
     @Override
     public UserEntity getLoginUser(HttpServletRequest request) {
         // 先判断是否已登录
-        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
-        UserEntity currentUser = (UserEntity) userObj;
+//        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
+//        UserEntity currentUser = (UserEntity) userObj;
+        long id = StpUtil.getLoginIdAsLong();
+
+        UserEntity currentUser = JSONObject.parseObject(redisTemplate.opsForValue().get(String.valueOf(id)).toString(), UserEntity.class);
         if (currentUser == null || currentUser.getId() == null) {
             throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
         }
         // 从数据库查询（追求性能的话可以注释，直接走缓存）
-        long userId = currentUser.getId();
-        currentUser = this.selectById(userId);
-        if (currentUser == null) {
-            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
-        }
+//        long userId = currentUser.getId();
+//        currentUser = this.selectById(userId);
+//        if (currentUser == null) {
+//            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
+//        }
         return currentUser;
     }
 
@@ -151,8 +160,10 @@ public class UserServiceImpl extends CrudServiceImpl<UserDao, UserEntity, UserDT
     @Override
     public boolean isAdmin(HttpServletRequest request) {
         // 仅管理员可查询
-        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
-        UserEntity user = (UserEntity) userObj;
+//        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
+//        UserEntity user = (UserEntity) userObj;
+        long id = StpUtil.getLoginIdAsLong();
+        UserEntity user = JSONObject.parseObject(redisTemplate.opsForValue().get(String.valueOf(id)).toString(), UserEntity.class);
         return user != null && ADMIN_ROLE.equals(user.getRole());
     }
 
@@ -163,11 +174,15 @@ public class UserServiceImpl extends CrudServiceImpl<UserDao, UserEntity, UserDT
      */
     @Override
     public boolean userLogout(HttpServletRequest request) {
-        if (request.getSession().getAttribute(USER_LOGIN_STATE) == null) {
+        long id = StpUtil.getLoginIdAsLong();
+        UserEntity currentUser = JSONObject.parseObject(redisTemplate.opsForValue().get(String.valueOf(id)).toString(), UserEntity.class);
+//        if (request.getSession().getAttribute(USER_LOGIN_STATE) == null) {
+        if (currentUser == null) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "未登录");
         }
         // 移除登录态
-        request.getSession().removeAttribute(USER_LOGIN_STATE);
+//        request.getSession().removeAttribute(USER_LOGIN_STATE);
+        StpUtil.logout();
         return true;
     }
 
