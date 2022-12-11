@@ -1,10 +1,8 @@
 package cn.neud.knownact.model.vo;
 
-import cn.neud.knownact.model.entity.PostEntity;
+import cn.neud.knownact.model.entity.post.PostEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
 
 /**
  * 帖子视图

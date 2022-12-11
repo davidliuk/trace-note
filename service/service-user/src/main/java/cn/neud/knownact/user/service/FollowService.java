@@ -1,8 +1,8 @@
 package cn.neud.knownact.user.service;
 
 import cn.neud.knownact.common.service.CrudService;
-import cn.neud.knownact.model.dto.FollowDTO;
-import cn.neud.knownact.model.entity.FollowEntity;
+import cn.neud.knownact.model.dto.user.FollowDTO;
+import cn.neud.knownact.model.entity.user.FollowEntity;
 
 /**
  * 

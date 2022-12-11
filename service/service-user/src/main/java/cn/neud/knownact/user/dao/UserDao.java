@@ -1,7 +1,7 @@
 package cn.neud.knownact.user.dao;
 
 import cn.neud.knownact.common.dao.BaseDao;
-import cn.neud.knownact.model.entity.UserEntity;
+import cn.neud.knownact.model.entity.user.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

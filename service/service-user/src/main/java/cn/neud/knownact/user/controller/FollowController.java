@@ -1,7 +1,6 @@
 package cn.neud.knownact.user.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
-import cn.neud.knownact.common.annotation.AuthCheck;
 import cn.neud.knownact.common.annotation.LogOperation;
 import cn.neud.knownact.model.constant.Constant;
 import cn.neud.knownact.model.dto.page.PageData;
@@ -12,9 +11,9 @@ import cn.neud.knownact.common.validator.ValidatorUtils;
 import cn.neud.knownact.common.validator.group.AddGroup;
 import cn.neud.knownact.common.validator.group.DefaultGroup;
 import cn.neud.knownact.common.validator.group.UpdateGroup;
-import cn.neud.knownact.model.dto.FollowDTO;
-import cn.neud.knownact.model.excel.FollowExcel;
-import cn.neud.knownact.feed.client.FeedFeignClient;
+import cn.neud.knownact.model.dto.user.FollowDTO;
+import cn.neud.knownact.model.excel.user.FollowExcel;
+import cn.neud.knownact.client.feed.FeedFeignClient;
 import cn.neud.knownact.user.service.FollowService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

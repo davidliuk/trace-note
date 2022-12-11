@@ -1,10 +1,9 @@
 package cn.neud.knownact.feed.dao;
 
 import cn.neud.knownact.common.dao.BaseDao;
-import cn.neud.knownact.model.entity.FeedEntity;
+import cn.neud.knownact.model.entity.feed.FeedEntity;
 import net.librec.recommender.item.RecommendedItem;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 

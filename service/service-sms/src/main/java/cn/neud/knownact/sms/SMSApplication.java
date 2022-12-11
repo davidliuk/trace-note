@@ -13,7 +13,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @SpringBootApplication
 @EnableRedisHttpSession
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "cn.neud.knownact")
+// @EnableFeignClients(basePackages = "cn.neud.knownact.client")
 @ComponentScan(basePackages = {"cn.neud.knownact.common", "cn.neud.knownact.sms"})
 public class SMSApplication extends SpringBootServletInitializer {
 

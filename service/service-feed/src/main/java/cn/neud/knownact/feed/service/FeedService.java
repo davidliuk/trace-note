@@ -1,9 +1,8 @@
 package cn.neud.knownact.feed.service;
 
 import cn.neud.knownact.common.service.CrudService;
-import cn.neud.knownact.model.dto.FeedDTO;
-import cn.neud.knownact.model.entity.FeedEntity;
-import org.springframework.scheduling.annotation.Async;
+import cn.neud.knownact.model.dto.feed.FeedDTO;
+import cn.neud.knownact.model.entity.feed.FeedEntity;
 
 /**
  * @author David l729641074@163.com

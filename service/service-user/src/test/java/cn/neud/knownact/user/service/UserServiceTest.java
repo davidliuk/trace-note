@@ -1,7 +1,6 @@
 package cn.neud.knownact.user.service;
 
-import cn.neud.knownact.model.entity.UserEntity;
-import cn.neud.knownact.user.service.UserService;
+import cn.neud.knownact.model.entity.user.UserEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

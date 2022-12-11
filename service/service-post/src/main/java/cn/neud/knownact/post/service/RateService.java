@@ -1,8 +1,8 @@
 package cn.neud.knownact.post.service;
 
 import cn.neud.knownact.common.service.CrudService;
-import cn.neud.knownact.model.dto.RateDTO;
-import cn.neud.knownact.model.entity.RateEntity;
+import cn.neud.knownact.model.dto.post.RateDTO;
+import cn.neud.knownact.model.entity.post.RateEntity;
 
 /**
  * 

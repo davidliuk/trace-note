@@ -2,9 +2,9 @@ package cn.neud.knownact.common.aop;
 
 import cn.neud.knownact.common.annotation.AuthCheck;
 import cn.neud.knownact.common.exception.ErrorCode;
-//import cn.neud.knownact.model.entity.UserEntity;
+//import cn.neud.knownact.model.entity.user.UserEntity;
 //import cn.neud.knownact.user.service.UserService;
-import cn.neud.knownact.model.entity.UserEntity;
+import cn.neud.knownact.model.entity.user.UserEntity;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import cn.neud.knownact.common.exception.BusinessException;
 import org.apache.commons.lang3.StringUtils;

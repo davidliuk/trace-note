@@ -4,8 +4,8 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.neud.knownact.common.exception.ErrorCode;
 import cn.neud.knownact.common.service.impl.CrudServiceImpl;
 import cn.neud.knownact.user.dao.UserDao;
-import cn.neud.knownact.model.dto.UserDTO;
-import cn.neud.knownact.model.entity.UserEntity;
+import cn.neud.knownact.model.dto.user.UserDTO;
+import cn.neud.knownact.model.entity.user.UserEntity;
 import cn.neud.knownact.user.service.UserService;
 import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import static cn.neud.knownact.model.constant.UserConstant.ADMIN_ROLE;
-import static cn.neud.knownact.model.constant.UserConstant.USER_LOGIN_STATE;
 
 
 /**

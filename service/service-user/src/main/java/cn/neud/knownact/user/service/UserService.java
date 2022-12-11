@@ -2,8 +2,8 @@ package cn.neud.knownact.user.service;
 
 
 import cn.neud.knownact.common.service.CrudService;
-import cn.neud.knownact.model.dto.UserDTO;
-import cn.neud.knownact.model.entity.UserEntity;
+import cn.neud.knownact.model.dto.user.UserDTO;
+import cn.neud.knownact.model.entity.user.UserEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import javax.servlet.http.HttpServletRequest;

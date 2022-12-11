@@ -1,26 +1,18 @@
 package cn.neud.knownact.user.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
-import cn.neud.knownact.model.entity.UserEntity;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import cn.neud.knownact.common.service.impl.CrudServiceImpl;
 import cn.neud.knownact.user.dao.FollowDao;
-import cn.neud.knownact.model.dto.FollowDTO;
-import cn.neud.knownact.model.entity.FollowEntity;
+import cn.neud.knownact.model.dto.user.FollowDTO;
+import cn.neud.knownact.model.entity.user.FollowEntity;
 import cn.neud.knownact.user.service.FollowService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Map;
-
-import static cn.neud.knownact.model.constant.UserConstant.USER_LOGIN_STATE;
 
 /**
  * @author David l729641074@163.com

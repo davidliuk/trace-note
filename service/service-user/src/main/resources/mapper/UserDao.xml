@@ -3,7 +3,7 @@
 
 <mapper namespace="cn.neud.knownact.user.dao.UserDao">
 
-    <resultMap type="cn.neud.knownact.model.entity.UserEntity" id="userMap">
+    <resultMap type="cn.neud.knownact.model.entity.user.UserEntity" id="userMap">
         <result property="id" column="id"/>
         <result property="account" column="account"/>
         <result property="password" column="password"/>

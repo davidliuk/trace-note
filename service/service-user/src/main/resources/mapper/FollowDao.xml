@@ -3,7 +3,7 @@
 
 <mapper namespace="cn.neud.knownact.user.dao.FollowDao">
 
-    <resultMap type="cn.neud.knownact.model.entity.FollowEntity" id="followMap">
+    <resultMap type="cn.neud.knownact.model.entity.user.FollowEntity" id="followMap">
         <result property="follower" column="follower"/>
         <result property="followee" column="followee"/>
         <result property="rate" column="rate"/>

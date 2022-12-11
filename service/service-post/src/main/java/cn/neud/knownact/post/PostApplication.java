@@ -10,7 +10,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 
 @EnableRedisHttpSession
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "cn.neud.knownact")
+@EnableFeignClients(basePackages = "cn.neud.knownact.client")
 @MapperScan("cn.neud.knownact.post.dao")
 @ComponentScan(basePackages = {"cn.neud.knownact.common", "cn.neud.knownact.post"})
 @SpringBootApplication

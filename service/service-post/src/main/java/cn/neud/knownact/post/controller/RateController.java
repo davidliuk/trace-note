@@ -1,7 +1,6 @@
 package cn.neud.knownact.post.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
-import cn.neud.knownact.common.annotation.AuthCheck;
 import cn.neud.knownact.common.annotation.LogOperation;
 import cn.neud.knownact.common.exception.BusinessException;
 import cn.neud.knownact.common.exception.ErrorCode;
@@ -14,10 +13,10 @@ import cn.neud.knownact.common.validator.ValidatorUtils;
 import cn.neud.knownact.common.validator.group.AddGroup;
 import cn.neud.knownact.common.validator.group.DefaultGroup;
 import cn.neud.knownact.common.validator.group.UpdateGroup;
-import cn.neud.knownact.model.dto.RateDTO;
-import cn.neud.knownact.model.excel.RateExcel;
+import cn.neud.knownact.model.dto.post.RateDTO;
+import cn.neud.knownact.model.excel.post.RateExcel;
 import cn.neud.knownact.post.service.RateService;
-import cn.neud.knownact.feed.client.FeedFeignClient;
+import cn.neud.knownact.client.feed.FeedFeignClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

@@ -3,7 +3,7 @@
 
 <mapper namespace="cn.neud.knownact.feed.dao.FeedDao">
 
-    <resultMap type="cn.neud.knownact.model.entity.FeedEntity" id="feedMap">
+    <resultMap type="cn.neud.knownact.model.entity.feed.FeedEntity" id="feedMap">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="postId" column="post_id"/>

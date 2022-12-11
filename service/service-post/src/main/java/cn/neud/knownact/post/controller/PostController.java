@@ -1,23 +1,21 @@
 package cn.neud.knownact.post.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
-import cn.neud.knownact.common.annotation.AuthCheck;
 import cn.neud.knownact.common.utils.Result;
 import cn.neud.knownact.common.exception.ErrorCode;
-import cn.neud.knownact.model.dto.UserDTO;
+import cn.neud.knownact.model.dto.user.UserDTO;
 import cn.neud.knownact.model.dto.post.PostAddRequest;
 import cn.neud.knownact.model.dto.post.PostQueryRequest;
 import cn.neud.knownact.model.dto.post.PostUpdateRequest;
-import cn.neud.knownact.model.entity.UserEntity;
 import cn.neud.knownact.post.service.PostService;
-import cn.neud.knownact.user.client.UserFeignClient;
+import cn.neud.knownact.client.user.UserFeignClient;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import cn.neud.knownact.model.dto.page.DeleteRequest;
 import cn.neud.knownact.common.utils.ResultUtils;
 import cn.neud.knownact.model.constant.Constant;
 import cn.neud.knownact.common.exception.BusinessException;
-import cn.neud.knownact.model.entity.PostEntity;
+import cn.neud.knownact.model.entity.post.PostEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;

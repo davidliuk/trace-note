@@ -1,7 +1,7 @@
 package cn.neud.knownact.post.dao;
 
 import cn.neud.knownact.common.dao.BaseDao;
-import cn.neud.knownact.model.entity.PostEntity;
+import cn.neud.knownact.model.entity.post.PostEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

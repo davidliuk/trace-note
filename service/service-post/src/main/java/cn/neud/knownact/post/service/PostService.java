@@ -1,9 +1,9 @@
 package cn.neud.knownact.post.service;
 
 import cn.neud.knownact.common.service.CrudService;
-import cn.neud.knownact.model.dto.PostDTO;
+import cn.neud.knownact.model.dto.post.PostDTO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import cn.neud.knownact.model.entity.PostEntity;
+import cn.neud.knownact.model.entity.post.PostEntity;
 
 import java.util.List;
 

@@ -3,7 +3,7 @@
 
 <mapper namespace="cn.neud.knownact.post.dao.RateDao">
 
-    <resultMap type="cn.neud.knownact.model.entity.RateEntity" id="rateMap">
+    <resultMap type="cn.neud.knownact.model.entity.post.RateEntity" id="rateMap">
         <result property="userId" column="user_id"/>
         <result property="postId" column="post_id"/>
         <result property="rate" column="rate"/>

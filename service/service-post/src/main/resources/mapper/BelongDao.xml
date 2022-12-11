@@ -3,7 +3,7 @@
 
 <mapper namespace="cn.neud.knownact.post.dao.BelongDao">
 
-    <resultMap type="cn.neud.knownact.model.entity.BelongEntity" id="belongMap">
+    <resultMap type="cn.neud.knownact.model.entity.post.BelongEntity" id="belongMap">
         <result property="postId" column="post_id"/>
         <result property="typeId" column="type_id"/>
     </resultMap>

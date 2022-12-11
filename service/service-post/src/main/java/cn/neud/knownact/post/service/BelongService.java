@@ -1,8 +1,8 @@
 package cn.neud.knownact.post.service;
 
 import cn.neud.knownact.common.service.CrudService;
-import cn.neud.knownact.model.dto.BelongDTO;
-import cn.neud.knownact.model.entity.BelongEntity;
+import cn.neud.knownact.model.dto.post.BelongDTO;
+import cn.neud.knownact.model.entity.post.BelongEntity;
 
 /**
  * 

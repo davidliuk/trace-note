@@ -1,31 +1,21 @@
 package cn.neud.knownact.post.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
-import cn.neud.knownact.common.utils.Result;
-import cn.neud.knownact.model.dto.UserDTO;
-import cn.neud.knownact.model.entity.RateEntity;
-import cn.neud.knownact.model.entity.UserEntity;
+import cn.neud.knownact.model.entity.post.RateEntity;
 import cn.neud.knownact.post.dao.RateDao;
 import cn.neud.knownact.post.service.PostService;
-import cn.neud.knownact.user.client.UserFeignClient;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import cn.neud.knownact.common.service.impl.CrudServiceImpl;
-import cn.neud.knownact.model.dto.RateDTO;
+import cn.neud.knownact.model.dto.post.RateDTO;
 import cn.neud.knownact.post.service.RateService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
-
-import static cn.neud.knownact.model.constant.UserConstant.USER_LOGIN_STATE;
 
 /**
  * @author David l729641074@163.com
