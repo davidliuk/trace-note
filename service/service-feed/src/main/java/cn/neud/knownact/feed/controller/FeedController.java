@@ -28,14 +28,12 @@ import java.util.Map;
 
 
 /**
- * 
- *
  * @author David l729641074@163.com
  * @since 1.0.0 2022-12-03
  */
 @RestController
 @RequestMapping("/feed")
-@Api(tags="Feed流")
+@Api(tags = "Feed流")
 public class FeedController {
     @Autowired
     private FeedService feedService;
@@ -43,13 +41,13 @@ public class FeedController {
     @GetMapping("page")
     @ApiOperation("分页")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = Constant.PAGE, value = "当前页码，从1开始", paramType = "query", required = true, dataType="int") ,
-        @ApiImplicitParam(name = Constant.LIMIT, value = "每页显示记录数", paramType = "query",required = true, dataType="int") ,
-        @ApiImplicitParam(name = Constant.ORDER_FIELD, value = "排序字段", paramType = "query", dataType="String") ,
-        @ApiImplicitParam(name = Constant.ORDER, value = "排序方式，可选值(asc、desc)", paramType = "query", dataType="String")
+            @ApiImplicitParam(name = Constant.PAGE, value = "当前页码，从1开始", paramType = "query", required = true, dataType = "int"),
+            @ApiImplicitParam(name = Constant.LIMIT, value = "每页显示记录数", paramType = "query", required = true, dataType = "int"),
+            @ApiImplicitParam(name = Constant.ORDER_FIELD, value = "排序字段", paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = Constant.ORDER, value = "排序方式，可选值(asc、desc)", paramType = "query", dataType = "String")
     })
     // @RequiresPermissions("knownact:feed:page")
-    public Result<PageData<FeedDTO>> page(@ApiIgnore @RequestParam Map<String, Object> params){
+    public Result<PageData<FeedDTO>> page(@ApiIgnore @RequestParam Map<String, Object> params) {
         PageData<FeedDTO> page = feedService.page(params);
 
         return new Result<PageData<FeedDTO>>().ok(page);
@@ -67,7 +65,7 @@ public class FeedController {
     @GetMapping("{id}")
     @ApiOperation("信息")
     // @RequiresPermissions("knownact:feed:info")
-    public Result<FeedDTO> get(@PathVariable("id") Long id){
+    public Result<FeedDTO> get(@PathVariable("id") Long id) {
         FeedDTO data = feedService.get(id);
 
         return new Result<FeedDTO>().ok(data);
@@ -77,7 +75,7 @@ public class FeedController {
     @ApiOperation("保存")
     @LogOperation("保存")
     // @RequiresPermissions("knownact:feed:save")
-    public Result save(@RequestBody FeedDTO dto){
+    public Result save(@RequestBody FeedDTO dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
 
@@ -90,7 +88,7 @@ public class FeedController {
     @ApiOperation("修改")
     @LogOperation("修改")
     // @RequiresPermissions("knownact:feed:update")
-    public Result update(@RequestBody FeedDTO dto){
+    public Result update(@RequestBody FeedDTO dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
 
@@ -103,7 +101,7 @@ public class FeedController {
     @ApiOperation("删除")
     @LogOperation("删除")
     // @RequiresPermissions("knownact:feed:delete")
-    public Result delete(@RequestBody Long[] ids){
+    public Result delete(@RequestBody Long[] ids) {
         //效验数据
         AssertUtils.isArrayEmpty(ids, "id");
 

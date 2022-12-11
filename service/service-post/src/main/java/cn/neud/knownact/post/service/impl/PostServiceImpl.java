@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author davidli
+ * @author david
  * @description 针对表【post(帖子)】的数据库操作Service实现
  */
 @Service
@@ -25,11 +25,13 @@ import java.util.Map;
 public class PostServiceImpl extends CrudServiceImpl<PostDao, PostEntity, PostDTO> implements PostService {
 
     @Override
-    public QueryWrapper<PostEntity> getWrapper(Map<String, Object> params){
-        String id = (String)params.get("id");
+    public QueryWrapper<PostEntity> getWrapper(Map<String, Object> params) {
+        String id = (String) params.get("id");
+        String userId = (String) params.get("userId");
 
         QueryWrapper<PostEntity> wrapper = new QueryWrapper<>();
         wrapper.eq(StringUtils.isNotBlank(id), "id", id);
+        wrapper.eq(StringUtils.isNotBlank(id), "user_id", userId);
 
         return wrapper;
     }

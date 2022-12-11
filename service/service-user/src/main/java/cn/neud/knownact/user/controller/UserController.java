@@ -1,11 +1,14 @@
 package cn.neud.knownact.user.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.stp.StpUtil;
 import cn.neud.knownact.common.utils.Result;
 import cn.neud.knownact.common.exception.ErrorCode;
 import cn.neud.knownact.model.dto.user.UserDTO;
 import cn.neud.knownact.model.dto.user.*;
 import cn.neud.knownact.model.entity.user.UserEntity;
+import cn.neud.knownact.model.vo.UserVO;
+import cn.neud.knownact.user.service.FollowService;
 import cn.neud.knownact.user.service.UserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -33,6 +36,9 @@ public class UserController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private FollowService followService;
 
     // region 登录相关
 
@@ -177,17 +183,19 @@ public class UserController {
      * 根据 id 获取用户
      *
      * @param id
-     * @param request
      * @return
      */
     @GetMapping("/get")
-    public Result<UserDTO> getUserById(int id, HttpServletRequest request) {
+    public Result<UserVO> getUserById(Long id) {
         if (id <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         UserEntity user = userService.selectById(id);
-        UserDTO userVO = new UserDTO();
+        UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user, userVO);
+        if (StpUtil.isLogin()) {
+            userVO.setHasFollow(followService.isFollow(id));
+        }
         return ResultUtils.success(userVO);
     }
 

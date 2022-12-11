@@ -1,6 +1,7 @@
 package cn.neud.knownact.post.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.neud.knownact.common.utils.ConvertUtils;
 import cn.neud.knownact.model.entity.post.RateEntity;
 import cn.neud.knownact.post.dao.RateDao;
 import cn.neud.knownact.post.service.PostService;
@@ -119,5 +120,13 @@ public class RateServiceImpl extends CrudServiceImpl<RateDao, RateEntity, RateDT
         entity.updateRate();
         baseDao.insert(entity);
         return postService.favorite(postId, true);
+    }
+
+    @Override
+    public RateDTO get(Long userId, Long postId) {
+        LambdaQueryWrapper<RateEntity> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(RateEntity::getUserId, userId).eq(RateEntity::getPostId, postId);
+
+        return ConvertUtils.sourceToTarget(baseDao.selectOne(wrapper), currentDtoClass());
     }
 }

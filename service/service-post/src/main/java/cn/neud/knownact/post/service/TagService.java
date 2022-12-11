@@ -4,6 +4,8 @@ import cn.neud.knownact.common.service.CrudService;
 import cn.neud.knownact.model.dto.post.TagDTO;
 import cn.neud.knownact.model.entity.post.TagEntity;
 
+import java.util.List;
+
 /**
  * 
  *
@@ -11,5 +13,7 @@ import cn.neud.knownact.model.entity.post.TagEntity;
  * @since 1.0.0 2022-12-02
  */
 public interface TagService extends CrudService<TagEntity, TagDTO> {
+
+    List<TagEntity> getTags(Long postId);
 
 }

@@ -8,7 +8,7 @@ import cn.neud.knownact.model.entity.post.PostEntity;
 import java.util.List;
 
 /**
- * @author davidli
+ * @author david
  * @description 针对表【post(帖子)】的数据库操作Service
  */
 public interface PostService extends CrudService<PostEntity, PostDTO> {

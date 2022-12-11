@@ -5,7 +5,7 @@
 
     <resultMap type="cn.neud.knownact.model.entity.post.BelongEntity" id="belongMap">
         <result property="postId" column="post_id"/>
-        <result property="typeId" column="type_id"/>
+        <result property="tagId" column="tag_id"/>
     </resultMap>
 
 </mapper>

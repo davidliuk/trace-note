@@ -23,5 +23,5 @@ public class BelongEntity implements Serializable {
     /**
      * 
      */
-	private Long typeId;
+	private Long tagId;
 }

@@ -23,7 +23,7 @@ public class BelongDTO implements Serializable {
 	private Long postId;
 
 	@ApiModelProperty(value = "")
-	private Long typeId;
+	private Long tagId;
 
 
 }

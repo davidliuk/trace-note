@@ -13,4 +13,6 @@ import cn.neud.knownact.model.entity.user.FollowEntity;
 public interface FollowService extends CrudService<FollowEntity, FollowDTO> {
 
     boolean set(Long id);
+
+    boolean isFollow(Long followee);
 }

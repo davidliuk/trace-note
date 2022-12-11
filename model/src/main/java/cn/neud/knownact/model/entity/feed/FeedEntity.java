@@ -35,7 +35,7 @@ public class FeedEntity implements Serializable {
 //    /**
 //     *
 //     */
-//	private Long typeId;
+//	private Long tagId;
     /**
      * 
      */

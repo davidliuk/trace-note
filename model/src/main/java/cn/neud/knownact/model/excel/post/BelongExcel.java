@@ -16,6 +16,6 @@ public class BelongExcel {
     @Excel(name = "")
     private Long postId;
     @Excel(name = "")
-    private Long typeId;
+    private Long tagId;
 
 }

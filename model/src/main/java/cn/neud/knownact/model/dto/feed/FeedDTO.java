@@ -30,7 +30,7 @@ public class FeedDTO implements Serializable {
 	private Long postId;
 
 //	@ApiModelProperty(value = "")
-//	private Long typeId;
+//	private Long tagId;
 
 	@ApiModelProperty(value = "")
 	private Double rate;

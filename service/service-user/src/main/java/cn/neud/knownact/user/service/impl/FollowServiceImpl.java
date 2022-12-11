@@ -1,5 +1,6 @@
 package cn.neud.knownact.user.service.impl;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -51,5 +52,14 @@ public class FollowServiceImpl extends CrudServiceImpl<FollowDao, FollowEntity, 
         entity.setRate(1);
         baseDao.insert(entity);
         return true;
+    }
+
+    @SaCheckLogin
+    @Override
+    public boolean isFollow(Long followee) {
+        Long follower = StpUtil.getLoginIdAsLong();
+        LambdaQueryWrapper<FollowEntity> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(FollowEntity::getFollower, follower).eq(FollowEntity::getFollowee, followee);
+        return baseDao.selectList(wrapper).size() == 1;
     }
 }

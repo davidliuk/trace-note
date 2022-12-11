@@ -15,4 +15,5 @@ public interface RateService extends CrudService<RateEntity, RateDTO> {
     long like(Long postId);
     long dislike(Long postId);
     long favorite(Long postId);
+    RateDTO get(Long userId, Long postId);
 }

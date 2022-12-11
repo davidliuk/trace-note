@@ -20,7 +20,7 @@ public class FeedExcel {
     @Excel(name = "")
     private Long postId;
 //    @Excel(name = "")
-//    private Long typeId;
+//    private Long tagId;
     @Excel(name = "")
     private Double rate;
 
