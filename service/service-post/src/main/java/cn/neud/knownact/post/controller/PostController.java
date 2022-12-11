@@ -1,5 +1,6 @@
 package cn.neud.knownact.post.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.neud.knownact.common.annotation.AuthCheck;
 import cn.neud.knownact.common.utils.Result;
 import cn.neud.knownact.common.exception.ErrorCode;
@@ -51,7 +52,7 @@ public class PostController {
      * @param request
      * @return
      */
-    @AuthCheck
+    @SaCheckLogin// @AuthCheck
     @PostMapping("/add")
     public Result<Long> addPost(@RequestBody PostAddRequest postAddRequest, HttpServletRequest request) {
         if (postAddRequest == null) {
@@ -78,7 +79,7 @@ public class PostController {
      * @param request
      * @return
      */
-    @AuthCheck
+    @SaCheckLogin// @AuthCheck
     @PostMapping("/delete")
     public Result<Boolean> deletePost(@RequestBody DeleteRequest deleteRequest, HttpServletRequest request) {
         if (deleteRequest == null || deleteRequest.getId() <= 0) {
@@ -106,7 +107,7 @@ public class PostController {
      * @param request
      * @return
      */
-    @AuthCheck
+    @SaCheckLogin// @AuthCheck
     @PostMapping("/update")
     public Result<Boolean> updatePost(@RequestBody PostUpdateRequest postUpdateRequest,
                                       HttpServletRequest request) {
@@ -153,7 +154,7 @@ public class PostController {
      * @param postQueryRequest
      * @return
      */
-    @AuthCheck(mustRole = "admin")
+    @SaCheckLogin// @AuthCheck(mustRole = "admin")
     @GetMapping("/list")
     public Result<List<PostEntity>> listPost(PostQueryRequest postQueryRequest) {
         PostEntity postQuery = new PostEntity();

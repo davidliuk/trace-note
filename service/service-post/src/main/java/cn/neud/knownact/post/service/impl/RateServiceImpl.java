@@ -1,9 +1,13 @@
 package cn.neud.knownact.post.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
+import cn.neud.knownact.common.utils.Result;
+import cn.neud.knownact.model.dto.UserDTO;
 import cn.neud.knownact.model.entity.RateEntity;
 import cn.neud.knownact.model.entity.UserEntity;
 import cn.neud.knownact.post.dao.RateDao;
 import cn.neud.knownact.post.service.PostService;
+import cn.neud.knownact.user.client.UserFeignClient;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import cn.neud.knownact.common.service.impl.CrudServiceImpl;
@@ -34,6 +38,9 @@ public class RateServiceImpl extends CrudServiceImpl<RateDao, RateEntity, RateDT
     @Resource
     PostService postService;
 
+//    @Resource
+//    private UserFeignClient userFeignClient;
+
     @Override
     public QueryWrapper<RateEntity> getWrapper(Map<String, Object> params) {
         String id = (String) params.get("id");
@@ -46,9 +53,12 @@ public class RateServiceImpl extends CrudServiceImpl<RateDao, RateEntity, RateDT
     @Transactional
     @Override
     public long like(Long postId) {
-        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        Long userId = ((UserEntity) request.getSession().getAttribute(USER_LOGIN_STATE)).getId();
+//        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
+//        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+//        Long userId = ((UserEntity) request.getSession().getAttribute(USER_LOGIN_STATE)).getId();
+//        UserDTO user = userFeignClient.getLoginUser().getData();
+//        Long userId = user.getId();
+        Long userId = StpUtil.getLoginIdAsLong();
         LambdaQueryWrapper<RateEntity> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(RateEntity::getUserId, userId).eq(RateEntity::getPostId, postId);
         if (baseDao.selectList(wrapper).size() != 0) {
@@ -70,9 +80,12 @@ public class RateServiceImpl extends CrudServiceImpl<RateDao, RateEntity, RateDT
     @Transactional
     @Override
     public long dislike(Long postId) {
-        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        Long userId = ((UserEntity) request.getSession().getAttribute(USER_LOGIN_STATE)).getId();
+//        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
+//        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+//        Long userId = ((UserEntity) request.getSession().getAttribute(USER_LOGIN_STATE)).getId();
+//        UserDTO user = userFeignClient.getLoginUser().getData();
+//        Long userId = user.getId();
+        Long userId = StpUtil.getLoginIdAsLong();
         LambdaQueryWrapper<RateEntity> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(RateEntity::getUserId, userId).eq(RateEntity::getPostId, postId);
         if (baseDao.selectList(wrapper).size() != 0) {
@@ -94,9 +107,12 @@ public class RateServiceImpl extends CrudServiceImpl<RateDao, RateEntity, RateDT
     @Transactional
     @Override
     public long favorite(Long postId) {
-        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        Long userId = ((UserEntity) request.getSession().getAttribute(USER_LOGIN_STATE)).getId();
+//        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
+//        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+//        Long userId = ((UserEntity) request.getSession().getAttribute(USER_LOGIN_STATE)).getId();
+//        UserDTO user = userFeignClient.getLoginUser().getData();
+//        Long userId = user.getId();
+        Long userId = StpUtil.getLoginIdAsLong();
         LambdaQueryWrapper<RateEntity> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(RateEntity::getUserId, userId).eq(RateEntity::getPostId, postId);
         if (baseDao.selectList(wrapper).size() != 0) {

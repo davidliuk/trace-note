@@ -1,5 +1,6 @@
 package cn.neud.knownact.user.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.neud.knownact.model.entity.UserEntity;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -22,8 +23,6 @@ import java.util.Map;
 import static cn.neud.knownact.model.constant.UserConstant.USER_LOGIN_STATE;
 
 /**
- * 
- *
  * @author David l729641074@163.com
  * @since 1.0.0 2022-12-03
  */
@@ -32,8 +31,8 @@ import static cn.neud.knownact.model.constant.UserConstant.USER_LOGIN_STATE;
 public class FollowServiceImpl extends CrudServiceImpl<FollowDao, FollowEntity, FollowDTO> implements FollowService {
 
     @Override
-    public QueryWrapper<FollowEntity> getWrapper(Map<String, Object> params){
-        String id = (String)params.get("id");
+    public QueryWrapper<FollowEntity> getWrapper(Map<String, Object> params) {
+        String id = (String) params.get("id");
 
         QueryWrapper<FollowEntity> wrapper = new QueryWrapper<>();
         wrapper.eq(StringUtils.isNotBlank(id), "id", id);
@@ -44,9 +43,10 @@ public class FollowServiceImpl extends CrudServiceImpl<FollowDao, FollowEntity, 
 
     @Override
     public boolean set(Long followee) {
-        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        Long follower = ((UserEntity) request.getSession().getAttribute(USER_LOGIN_STATE)).getId();
+//        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
+//        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+//        Long follower = ((UserEntity) request.getSession().getAttribute(USER_LOGIN_STATE)).getId();
+        Long follower = StpUtil.getLoginIdAsLong();
         LambdaQueryWrapper<FollowEntity> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(FollowEntity::getFollower, follower).eq(FollowEntity::getFollowee, followee);
         if (baseDao.selectList(wrapper).size() != 0) {

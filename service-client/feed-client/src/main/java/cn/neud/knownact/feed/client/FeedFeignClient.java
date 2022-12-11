@@ -6,11 +6,11 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient(value = "knownact-feed", name = "knownact-feed" ,url = "localhost:8082")
+@FeignClient(value = "knownact-feed", name = "knownact-feed" ,url = "localhost:8082", path = "/api/feed")
 @Repository
 public interface FeedFeignClient {
 
-    @GetMapping("/api/feed/feed")
+    @GetMapping("/feed")
     @ApiOperation("答者统计数据")
     public Result<String> train();
 

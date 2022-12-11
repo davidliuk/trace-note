@@ -1,5 +1,6 @@
 package cn.neud.knownact.user.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.neud.knownact.common.exception.ErrorCode;
 import cn.neud.knownact.common.service.impl.CrudServiceImpl;
 import cn.neud.knownact.user.dao.UserDao;
@@ -114,6 +115,7 @@ public class UserServiceImpl extends CrudServiceImpl<UserDao, UserEntity, UserDT
         }
         // 3. 记录用户的登录态
         request.getSession().setAttribute(USER_LOGIN_STATE, user);
+        StpUtil.login(user.getId());
         return user;
     }
 

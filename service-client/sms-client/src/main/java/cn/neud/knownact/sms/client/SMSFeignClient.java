@@ -8,12 +8,11 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(value = "knownact-sms", name = "knownact-sms", url = "localhost:8085")
-//@RequestMapping("/sms/mail")
+@FeignClient(value = "knownact-sms", name = "knownact-sms", url = "localhost:8085", path = "/api/sms")
 @Repository
 public interface SMSFeignClient {
 
-    @GetMapping("/api/sms/mail/code")
+    @GetMapping("/mail/code")
     @ApiOperation("邮箱获取验证码")
     @LogOperation("邮箱获取验证码")
     public Result loginByEmail(@RequestBody UserEmailDTO userEmailDTO);

@@ -9,15 +9,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
-@FeignClient(value = "knownact-oss", name = "knownact-oss", url = "localhost:8084")
-//@RequestMapping("/oss")
+@FeignClient(value = "knownact-oss", name = "knownact-oss", url = "localhost:8084", path = "/api/oss")
 @Repository
 public interface OSSFeignClient {
 
     /**
      * 根据排班id获取预约下单数据
      */
-    @PostMapping("/api/oss/upload/{path}")
+    @PostMapping("/upload/{path}")
     @ApiOperation(value = "上传文件")
     public Result<Map<String, Object>> upload(
             @RequestParam("file") MultipartFile file,

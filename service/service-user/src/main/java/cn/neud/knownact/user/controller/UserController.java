@@ -35,6 +35,11 @@ public class UserController {
 
     // region 登录相关
 
+    @GetMapping("/session")
+    public String session(HttpServletRequest request) {
+        return "session: " + request.getSession().getId() + "  port: " + request.getServerPort();
+    }
+
     /**
      * 用户注册
      *

@@ -1,5 +1,6 @@
 package cn.neud.knownact.post.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.neud.knownact.common.annotation.AuthCheck;
 import cn.neud.knownact.common.annotation.LogOperation;
 import cn.neud.knownact.common.exception.BusinessException;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +54,12 @@ public class RateController {
 
     private static final ExecutorService REC_TRAIN_EXECUTOR = Executors.newFixedThreadPool(5);
 
-    @AuthCheck
+    @GetMapping("/session")
+    public String session(HttpServletRequest request) {
+        return "session: " + request.getSession().getId() + "  port: " + request.getServerPort();
+    }
+
+    @SaCheckLogin// @AuthCheck
     @GetMapping("like/{id}")
     @ApiOperation("点赞")
     // @RequiresPermissions("knownact:follow:info")
@@ -70,7 +77,7 @@ public class RateController {
         return new Result<Long>().ok(count);
     }
 
-    @AuthCheck
+    @SaCheckLogin// @AuthCheck
     @GetMapping("dislike/{id}")
     @ApiOperation("点踩")
     // @RequiresPermissions("knownact:follow:info")
@@ -88,7 +95,7 @@ public class RateController {
         return new Result<Long>().ok(count);
     }
 
-    @AuthCheck
+    @SaCheckLogin// @AuthCheck
     @GetMapping("favorite/{id}")
     @ApiOperation("收藏")
     // @RequiresPermissions("knownact:follow:info")

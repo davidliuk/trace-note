@@ -1,5 +1,6 @@
 package cn.neud.knownact.user.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.neud.knownact.common.annotation.AuthCheck;
 import cn.neud.knownact.common.annotation.LogOperation;
 import cn.neud.knownact.model.constant.Constant;
@@ -70,9 +71,9 @@ public class FollowController {
 //        return new Result<FollowDTO>().ok(data);
 //    }
 
-    @AuthCheck
+    @SaCheckLogin// @AuthCheck
     @GetMapping("{id}")
-    @ApiOperation("信息")
+    @ApiOperation("订阅")
     // @RequiresPermissions("knownact:follow:info")
     public Result set(@PathVariable("id") Long id){
         boolean set = followService.set(id);

@@ -44,13 +44,13 @@ public class AuthInterceptor {
     public Object doInterceptor(ProceedingJoinPoint joinPoint, AuthCheck authCheck) throws Throwable {
         List<String> anyRole = Arrays.stream(authCheck.anyRole()).filter(StringUtils::isNotBlank).collect(Collectors.toList());
         String mustRole = authCheck.mustRole();
-        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         // 当前登录用户
         // UserEntity user = userService.getLoginUser(request);
-        // 先判断是否已登录
+        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
+        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
         UserEntity user = (UserEntity) userObj;
+        // 先判断是否已登录
         if (user == null || user.getId() == null) {
             throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
         }
