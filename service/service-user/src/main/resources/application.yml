@@ -14,6 +14,7 @@ spring:
     nacos:
       discovery:
         server-addr: 101.43.31.212:8849
+        namespace: ldw
   # session 失效时间（分钟）
   session:
     timeout: 86400

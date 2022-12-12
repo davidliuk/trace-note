@@ -12,7 +12,7 @@ server:
 spring:
   profiles: dev
   application:
-    name: gateway
+    name: service-gateway
   session:
     timeout: 86400
     store-type: redis
@@ -29,6 +29,7 @@ spring:
     nacos:
       discovery:
         server-addr: 101.43.31.212:8849
+        namespace: ldw
     gateway:
       routes:
         - id: knownact-user

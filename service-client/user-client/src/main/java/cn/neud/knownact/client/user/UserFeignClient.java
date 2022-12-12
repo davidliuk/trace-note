@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
 
-@FeignClient(value = "knownact-user2", name = "knownact-user2", url = "localhost:8081", path = "/api/user")
+@FeignClient(value = "knownact-user", name = "knownact-user", url = "localhost:8081", path = "/api/user")
 @Repository
 public interface UserFeignClient {
 
