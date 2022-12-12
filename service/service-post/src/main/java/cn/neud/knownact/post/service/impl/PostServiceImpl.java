@@ -38,9 +38,11 @@ public class PostServiceImpl extends CrudServiceImpl<PostDao, PostEntity, PostDT
         String id = (String) params.get("id");
         String userId = (String) params.get("userId");
         List<Long> ids = (List<Long>) params.get("ids");
+        String content = (String) params.get("content");
 
         QueryWrapper<PostEntity> wrapper = new QueryWrapper<>();
         wrapper.eq(StringUtils.isNotBlank(id), "id", id);
+        wrapper.like(StringUtils.isNotBlank(content), "title", content).or().like(StringUtils.isNotBlank(content), "brief", content);
         wrapper.eq(StringUtils.isNotBlank(userId), "user_id", userId);
         wrapper.in(ObjectUtils.isNotEmpty(ids), "id", ids);
 
