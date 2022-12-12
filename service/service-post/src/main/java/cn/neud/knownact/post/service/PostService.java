@@ -2,6 +2,7 @@ package cn.neud.knownact.post.service;
 
 import cn.neud.knownact.common.service.CrudService;
 import cn.neud.knownact.model.dto.post.PostDTO;
+import cn.neud.knownact.model.vo.PostVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import cn.neud.knownact.model.entity.post.PostEntity;
 
@@ -32,4 +33,5 @@ public interface PostService extends CrudService<PostEntity, PostDTO> {
 
 
     long favorite(Long postId, boolean asc);
+
 }

@@ -4,6 +4,8 @@ import cn.neud.knownact.common.service.CrudService;
 import cn.neud.knownact.model.dto.post.RateDTO;
 import cn.neud.knownact.model.entity.post.RateEntity;
 
+import java.util.List;
+
 /**
  * 
  *
@@ -16,4 +18,7 @@ public interface RateService extends CrudService<RateEntity, RateDTO> {
     long dislike(Long postId);
     long favorite(Long postId);
     RateDTO get(Long userId, Long postId);
+    List<Long> selectLikeByUser(Long userId);
+    List<Long> selectDislikeByUser(Long userId);
+    List<Long> selectFavoriteByUser(Long userId);
 }

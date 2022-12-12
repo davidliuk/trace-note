@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author David l729641074@163.com
@@ -128,5 +130,26 @@ public class RateServiceImpl extends CrudServiceImpl<RateDao, RateEntity, RateDT
         wrapper.eq(RateEntity::getUserId, userId).eq(RateEntity::getPostId, postId);
 
         return ConvertUtils.sourceToTarget(baseDao.selectOne(wrapper), currentDtoClass());
+    }
+
+    @Override
+    public List<Long> selectLikeByUser(Long userId) {
+        LambdaQueryWrapper<RateEntity> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(RateEntity::getUserId, userId).eq(RateEntity::getLikes, 1);
+        return baseDao.selectList(wrapper).stream().map(RateEntity::getPostId).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Long> selectDislikeByUser(Long userId) {
+        LambdaQueryWrapper<RateEntity> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(RateEntity::getUserId, userId).eq(RateEntity::getDislike, 1);
+        return baseDao.selectList(wrapper).stream().map(RateEntity::getPostId).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Long> selectFavoriteByUser(Long userId) {
+        LambdaQueryWrapper<RateEntity> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(RateEntity::getUserId, userId).eq(RateEntity::getFavorite, 1);
+        return baseDao.selectList(wrapper).stream().map(RateEntity::getPostId).collect(Collectors.toList());
     }
 }

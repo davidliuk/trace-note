@@ -1,5 +1,6 @@
 package cn.neud.knownact.model.dto.post;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,9 +20,11 @@ public class RateDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "用户id")
+	@JsonFormat(shape = JsonFormat.Shape.STRING)
 	private Long userId;
 
 	@ApiModelProperty(value = "帖子id")
+	@JsonFormat(shape = JsonFormat.Shape.STRING)
 	private Long postId;
 
 	@ApiModelProperty(value = "评分0-5")

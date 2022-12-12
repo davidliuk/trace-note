@@ -1,6 +1,7 @@
 package cn.neud.knownact.model.dto.user;
 
 import cn.neud.knownact.model.dto.page.PageRequest;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,6 +19,7 @@ public class UserQueryRequest extends PageRequest implements Serializable {
     /**
      * id
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     /**

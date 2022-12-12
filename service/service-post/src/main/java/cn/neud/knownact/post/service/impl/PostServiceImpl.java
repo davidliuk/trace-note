@@ -1,18 +1,27 @@
 package cn.neud.knownact.post.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
+import cn.neud.knownact.client.feed.FeedFeignClient;
+import cn.neud.knownact.client.user.UserFeignClient;
 import cn.neud.knownact.common.exception.ErrorCode;
 import cn.neud.knownact.common.service.impl.CrudServiceImpl;
+import cn.neud.knownact.model.vo.PostVO;
 import cn.neud.knownact.post.dao.PostDao;
 import cn.neud.knownact.model.dto.post.PostDTO;
+import cn.neud.knownact.post.service.RateService;
+import cn.neud.knownact.post.service.TagService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import cn.neud.knownact.common.exception.BusinessException;
 import cn.neud.knownact.model.entity.post.PostEntity;
 import cn.neud.knownact.model.enums.PostReviewStatusEnum;
 import cn.neud.knownact.post.service.PostService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -28,10 +37,12 @@ public class PostServiceImpl extends CrudServiceImpl<PostDao, PostEntity, PostDT
     public QueryWrapper<PostEntity> getWrapper(Map<String, Object> params) {
         String id = (String) params.get("id");
         String userId = (String) params.get("userId");
+        List<Long> ids = (List<Long>) params.get("ids");
 
         QueryWrapper<PostEntity> wrapper = new QueryWrapper<>();
         wrapper.eq(StringUtils.isNotBlank(id), "id", id);
-        wrapper.eq(StringUtils.isNotBlank(id), "user_id", userId);
+        wrapper.eq(StringUtils.isNotBlank(userId), "user_id", userId);
+        wrapper.in(ObjectUtils.isNotEmpty(ids), "id", ids);
 
         return wrapper;
     }
@@ -89,4 +100,5 @@ public class PostServiceImpl extends CrudServiceImpl<PostDao, PostEntity, PostDT
         baseDao.updateById(post);
         return post.getFavorite();
     }
+
 }

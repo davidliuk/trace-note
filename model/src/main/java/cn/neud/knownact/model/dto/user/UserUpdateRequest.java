@@ -1,6 +1,7 @@
 package cn.neud.knownact.model.dto.user;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ public class UserUpdateRequest implements Serializable {
     /**
      * id
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     /**

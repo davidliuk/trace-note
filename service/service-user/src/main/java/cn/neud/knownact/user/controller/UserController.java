@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -201,6 +203,37 @@ public class UserController {
             userVO.setHasFollow(followService.isFollow(id));
         }
         return ResultUtils.success(userVO);
+    }
+
+    /**
+     * 根据 id 批量获取用户
+     *
+     * @param ids
+     * @return
+     */
+    @PostMapping("/get")
+    @ApiOperation("根据ID获取获取用户视图")
+    @LogOperation("根据ID获取获取用户视图")
+    public Result<Map<Long, UserVO>> getUserByIdBatch(@RequestBody Long[] ids) {
+        Map<Long, UserVO> map = new HashMap<>();
+        System.out.println("ids!!!!!!!!!");
+        System.out.println(ids);
+        for (Long id: ids) {
+            if (id <= 0) {
+                throw new BusinessException(ErrorCode.PARAMS_ERROR);
+            }
+            UserEntity user = userService.selectById(id);
+            if (user == null) {
+                continue;
+            }
+            UserVO userVO = new UserVO();
+            BeanUtils.copyProperties(user, userVO);
+            if (StpUtil.isLogin()) {
+                userVO.setHasFollow(followService.isFollow(id));
+            }
+            map.put(id, userVO);
+        }
+        return ResultUtils.success(map);
     }
 
     /**

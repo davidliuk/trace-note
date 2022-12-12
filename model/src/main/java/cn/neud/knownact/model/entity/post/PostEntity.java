@@ -3,6 +3,7 @@ package cn.neud.knownact.model.entity.post;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -22,7 +23,8 @@ public class PostEntity implements Serializable {
      * 
      */
     @TableId(type = IdType.ASSIGN_ID)
-	private Long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Long id;
     /**
      * 
      */

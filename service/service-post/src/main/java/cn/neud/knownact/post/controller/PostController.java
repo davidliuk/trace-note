@@ -10,6 +10,7 @@ import cn.neud.knownact.model.dto.page.PageData;
 import cn.neud.knownact.model.dto.post.*;
 import cn.neud.knownact.model.dto.user.UserDTO;
 import cn.neud.knownact.model.vo.PostVO;
+import cn.neud.knownact.model.vo.UserVO;
 import cn.neud.knownact.post.service.PostService;
 import cn.neud.knownact.client.user.UserFeignClient;
 import cn.neud.knownact.post.service.RateService;
@@ -65,7 +66,7 @@ public class PostController {
     // region 增删改查
 
     @GetMapping("page")
-    @ApiOperation("分页")
+    @ApiOperation("推荐分页")
     @ApiImplicitParams({
             @ApiImplicitParam(name = Constant.PAGE, value = "当前页码，从1开始", paramType = "query", required = true, dataType = "int"),
             @ApiImplicitParam(name = Constant.LIMIT, value = "每页显示记录数", paramType = "query", required = true, dataType = "int"),
@@ -83,19 +84,111 @@ public class PostController {
             List<Long> feeds = feedFeignClient.page(two).getData().getList().stream().map(FeedDTO::getPostId).collect(Collectors.toList());
             System.out.println(feeds);
             params.put(Constant.LIMIT, String.valueOf(size - feeds.size()));
-            List<Long> posts = postService.page(params).getList().stream().map(PostDTO::getId).collect(Collectors.toList());
+            List<PostDTO> dtos = postService.page(params).getList();
+            List<Long> posts = dtos.stream().map(PostDTO::getId).collect(Collectors.toList());
             System.out.println(posts);
             posts.addAll(feeds);
-            List<PostVO> list = posts.stream().map(id -> getPostById(id).getData()).collect(Collectors.toList());
+            Map<Long, UserVO> userMap = userFeignClient.getUserByIdBatch(dtos.stream().map(PostDTO::getUserId).toArray(Long[]::new)).getData();
+            System.out.println("userMap!!!!!");
+            System.out.println(userMap);
+            List<PostVO> list = posts.stream().map(id -> {
+                PostEntity post = postService.selectById(id);
+                PostVO postVO = new PostVO();
+                BeanUtils.copyProperties(post, postVO);
+                try {
+                    postVO.setUserVO(userMap.getOrDefault(post.getUserId(), new UserVO()));
+                    postVO.setTags(tagService.getTags(id));
+                } catch (Exception e) {
+                }
+                if (StpUtil.isLogin()) {
+                    long userId = StpUtil.getLoginIdAsLong();
+                    postVO.setRate(rateService.get(userId, id));
+                }
+                return postVO;
+            }).collect(Collectors.toList());
             System.out.println(list);
             PageData<PostVO> page = new PageData<>(list, list.size());
             return new Result<PageData<PostVO>>().ok(page);
         } catch (Exception e) {
             PageData<PostDTO> posts = postService.page(origin);
-            List<PostVO> list = posts.getList().stream().map(post -> getPostById(post.getId()).getData()).collect(Collectors.toList());
+            Long[] ids = posts.getList().stream().map(PostDTO::getUserId).toArray(Long[]::new);
+            System.out.println(ids);
+            Map<Long, UserVO> userMap = userFeignClient.getUserByIdBatch(ids).getData();
+            List<PostVO> list = posts.getList().stream().map(post -> {
+                PostVO postVO = new PostVO();
+                BeanUtils.copyProperties(post, postVO);
+                try {
+                    postVO.setUserVO(userMap.getOrDefault(post.getUserId(), new UserVO()));
+                    postVO.setTags(tagService.getTags(post.getId()));
+                } catch (Exception ex) {
+                }
+                if (StpUtil.isLogin()) {
+                    long userId = StpUtil.getLoginIdAsLong();
+                    postVO.setRate(rateService.get(userId, post.getId()));
+                }
+                return postVO;
+            }).collect(Collectors.toList());
             PageData<PostVO> page = new PageData<>(list, list.size());
             return new Result<PageData<PostVO>>().ok(page);
         }
+    }
+
+
+    @SaCheckLogin
+    @GetMapping("page/like")
+    @ApiOperation("点赞列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = Constant.PAGE, value = "当前页码，从1开始", paramType = "query", required = true, dataType = "int"),
+            @ApiImplicitParam(name = Constant.LIMIT, value = "每页显示记录数", paramType = "query", required = true, dataType = "int"),
+            @ApiImplicitParam(name = Constant.ORDER_FIELD, value = "排序字段", paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = Constant.ORDER, value = "排序方式，可选值(asc、desc)", paramType = "query", dataType = "String")
+    })
+    // @RequiresPermissions("knownact:belong:page")
+    public Result<PageData<PostVO>> pageLike(@ApiIgnore @RequestParam Map<String, Object> params) {
+        long userId = StpUtil.getLoginIdAsLong();
+        params.put("ids", rateService.selectLikeByUser(userId));
+        PageData<PostDTO> posts = postService.page(params);
+        List<PostVO> list = posts.getList().stream().map(post -> getPostById(post.getId()).getData()).collect(Collectors.toList());
+        PageData<PostVO> page = new PageData<>(list, list.size());
+        return new Result<PageData<PostVO>>().ok(page);
+    }
+
+    @SaCheckLogin
+    @GetMapping("page/dislike")
+    @ApiOperation("点踩列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = Constant.PAGE, value = "当前页码，从1开始", paramType = "query", required = true, dataType = "int"),
+            @ApiImplicitParam(name = Constant.LIMIT, value = "每页显示记录数", paramType = "query", required = true, dataType = "int"),
+            @ApiImplicitParam(name = Constant.ORDER_FIELD, value = "排序字段", paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = Constant.ORDER, value = "排序方式，可选值(asc、desc)", paramType = "query", dataType = "String")
+    })
+    // @RequiresPermissions("knownact:belong:page")
+    public Result<PageData<PostVO>> pageDislike(@ApiIgnore @RequestParam Map<String, Object> params) {
+        long userId = StpUtil.getLoginIdAsLong();
+        params.put("ids", rateService.selectDislikeByUser(userId));
+        PageData<PostDTO> posts = postService.page(params);
+        List<PostVO> list = posts.getList().stream().map(post -> getPostById(post.getId()).getData()).collect(Collectors.toList());
+        PageData<PostVO> page = new PageData<>(list, list.size());
+        return new Result<PageData<PostVO>>().ok(page);
+    }
+
+    @SaCheckLogin
+    @GetMapping("page/favorite")
+    @ApiOperation("收藏列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = Constant.PAGE, value = "当前页码，从1开始", paramType = "query", required = true, dataType = "int"),
+            @ApiImplicitParam(name = Constant.LIMIT, value = "每页显示记录数", paramType = "query", required = true, dataType = "int"),
+            @ApiImplicitParam(name = Constant.ORDER_FIELD, value = "排序字段", paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = Constant.ORDER, value = "排序方式，可选值(asc、desc)", paramType = "query", dataType = "String")
+    })
+    // @RequiresPermissions("knownact:belong:page")
+    public Result<PageData<PostVO>> pageFavorite(@ApiIgnore @RequestParam Map<String, Object> params) {
+        long userId = StpUtil.getLoginIdAsLong();
+        params.put("ids", rateService.selectFavoriteByUser(userId));
+        PageData<PostDTO> posts = postService.page(params);
+        List<PostVO> list = posts.getList().stream().map(post -> getPostById(post.getId()).getData()).collect(Collectors.toList());
+        PageData<PostVO> page = new PageData<>(list, list.size());
+        return new Result<PageData<PostVO>>().ok(page);
     }
 
     /**
@@ -204,7 +297,6 @@ public class PostController {
             postVO.setUserVO(userFeignClient.getUserById(post.getUserId()).getData());
             postVO.setTags(tagService.getTags(post.getId()));
         } catch (Exception e) {
-
         }
         if (StpUtil.isLogin()) {
             long userId = StpUtil.getLoginIdAsLong();

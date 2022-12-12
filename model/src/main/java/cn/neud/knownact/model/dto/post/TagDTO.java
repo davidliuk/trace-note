@@ -1,5 +1,6 @@
 package cn.neud.knownact.model.dto.post;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,7 +20,8 @@ public class TagDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "")
-	private Long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Long id;
 
 	@ApiModelProperty(value = "")
 	private String name;

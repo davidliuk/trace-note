@@ -1,5 +1,6 @@
 package cn.neud.knownact.model.dto.post;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ public class PostUpdateRequest implements Serializable {
     /**
      * id
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private long id;
 
     /**

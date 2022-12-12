@@ -1,5 +1,6 @@
 package cn.neud.knownact.model.dto.page;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ public class DeleteRequest implements Serializable {
     /**
      * id
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     private static final long serialVersionUID = 1L;
