@@ -91,12 +91,9 @@ public class PostController {
             PageData<PostVO> page = new PageData<>(list, list.size());
             return new Result<PageData<PostVO>>().ok(page);
         } catch (Exception e) {
-            System.out.println(origin);
-            System.out.println(origin.keySet());
-            System.out.println(origin.values());
             PageData<PostDTO> posts = postService.page(origin);
             List<PostVO> list = posts.getList().stream().map(post -> getPostById(post.getId()).getData()).collect(Collectors.toList());
-            PageData<PostVO> page = new PageData<>(list, Integer.parseInt((String) origin.get(Constant.LIMIT)));
+            PageData<PostVO> page = new PageData<>(list, list.size());
             return new Result<PageData<PostVO>>().ok(page);
         }
     }
