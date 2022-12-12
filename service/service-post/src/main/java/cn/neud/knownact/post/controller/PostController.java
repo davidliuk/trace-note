@@ -34,6 +34,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -147,7 +148,12 @@ public class PostController {
     // @RequiresPermissions("knownact:belong:page")
     public Result<PageData<PostVO>> pageLike(@ApiIgnore @RequestParam Map<String, Object> params) {
         long userId = StpUtil.getLoginIdAsLong();
-        params.put("ids", rateService.selectLikeByUser(userId));
+        List<Long> ids = rateService.selectLikeByUser(userId);
+        if (ids == null || ids.size() == 0) {
+            PageData<PostVO> page = new PageData<>(new ArrayList<>(), 0);
+            return new Result<PageData<PostVO>>().ok(page);
+        }
+        params.put("ids", ids);
         PageData<PostDTO> posts = postService.page(params);
         List<PostVO> list = posts.getList().stream().map(post -> getPostById(post.getId()).getData()).collect(Collectors.toList());
         PageData<PostVO> page = new PageData<>(list, list.size());
@@ -166,7 +172,12 @@ public class PostController {
     // @RequiresPermissions("knownact:belong:page")
     public Result<PageData<PostVO>> pageDislike(@ApiIgnore @RequestParam Map<String, Object> params) {
         long userId = StpUtil.getLoginIdAsLong();
-        params.put("ids", rateService.selectDislikeByUser(userId));
+        List<Long> ids = rateService.selectDislikeByUser(userId);
+        if (ids == null || ids.size() == 0) {
+            PageData<PostVO> page = new PageData<>(new ArrayList<>(), 0);
+            return new Result<PageData<PostVO>>().ok(page);
+        }
+        params.put("ids", ids);
         PageData<PostDTO> posts = postService.page(params);
         List<PostVO> list = posts.getList().stream().map(post -> getPostById(post.getId()).getData()).collect(Collectors.toList());
         PageData<PostVO> page = new PageData<>(list, list.size());
@@ -185,7 +196,12 @@ public class PostController {
     // @RequiresPermissions("knownact:belong:page")
     public Result<PageData<PostVO>> pageFavorite(@ApiIgnore @RequestParam Map<String, Object> params) {
         long userId = StpUtil.getLoginIdAsLong();
-        params.put("ids", rateService.selectFavoriteByUser(userId));
+        List<Long> ids = rateService.selectFavoriteByUser(userId);
+        if (ids == null || ids.size() == 0) {
+            PageData<PostVO> page = new PageData<>(new ArrayList<>(), 0);
+            return new Result<PageData<PostVO>>().ok(page);
+        }
+        params.put("ids", ids);
         PageData<PostDTO> posts = postService.page(params);
         List<PostVO> list = posts.getList().stream().map(post -> getPostById(post.getId()).getData()).collect(Collectors.toList());
         PageData<PostVO> page = new PageData<>(list, list.size());
