@@ -7,7 +7,7 @@ import cn.neud.knownact.user.dao.UserDao;
 import cn.neud.knownact.model.dto.user.UserDTO;
 import cn.neud.knownact.model.entity.user.UserEntity;
 import cn.neud.knownact.user.service.UserService;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import cn.neud.knownact.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;

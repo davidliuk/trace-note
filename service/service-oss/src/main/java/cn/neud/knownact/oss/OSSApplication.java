@@ -10,12 +10,12 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
-@SpringBootApplication
 @EnableRedisHttpSession
 @EnableDiscoveryClient
 // @EnableFeignClients(basePackages = "cn.neud.knownact.client")
 @MapperScan("cn.neud.knownact.oss.dao")
 @ComponentScan(basePackages = {"cn.neud.knownact.common", "cn.neud.knownact.oss"})
+@SpringBootApplication
 public class OSSApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

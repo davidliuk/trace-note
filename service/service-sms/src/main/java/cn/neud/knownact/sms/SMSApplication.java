@@ -10,11 +10,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
-@SpringBootApplication
 @EnableRedisHttpSession
 @EnableDiscoveryClient
 // @EnableFeignClients(basePackages = "cn.neud.knownact.client")
 @ComponentScan(basePackages = {"cn.neud.knownact.common", "cn.neud.knownact.sms"})
+@SpringBootApplication
 public class SMSApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
