@@ -22,4 +22,9 @@ public class AdornmentOrderController {
     public Result seckillAdornment(@PathVariable("id") Long adornmentId) {
         return adornmentOrderService.seckillAdornment(adornmentId);
     }
+
+    @GetMapping("pay/{id}")
+    public Result payOrder(@PathVariable("id") String orderId) {
+        return adornmentOrderService.payOrder(orderId);
+    }
 }

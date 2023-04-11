@@ -3,6 +3,7 @@ package cn.neud.trace.note.service.impl;
 import cn.neud.trace.note.config.MQConfig;
 import cn.neud.trace.note.service.SeckillAdornmentService;
 import cn.neud.trace.note.service.AdornmentOrderService;
+import cn.neud.trace.note.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import cn.neud.trace.note.model.dto.Result;
 import cn.neud.trace.note.model.entity.AdornmentOrder;
@@ -19,6 +20,7 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Collections;
 
 /**
@@ -58,6 +60,7 @@ public class AdornmentOrderServiceImpl extends ServiceImpl<AdornmentOrderMapper,
     public void createAdornmentOrder(AdornmentOrder adornmentOrder) {
         Long userId = adornmentOrder.getUserId();
         Long adornmentId = adornmentOrder.getAdornmentId();
+
         // 创建锁对象
         RLock redisLock = redissonClient.getLock("lock:order:" + userId);
         // 尝试获取锁
@@ -78,7 +81,6 @@ public class AdornmentOrderServiceImpl extends ServiceImpl<AdornmentOrderMapper,
                 log.error("不允许重复下单！");
                 return;
             }
-
             // 6.扣减库存
             boolean success = seckillAdornmentService.update()
                     .setSql("stock = stock - 1") // set stock = stock - 1
@@ -89,13 +91,62 @@ public class AdornmentOrderServiceImpl extends ServiceImpl<AdornmentOrderMapper,
                 log.error("库存不足！");
                 return;
             }
-
-            // 7.创建订单
-            save(adornmentOrder);
+            // 查找秒杀价格
+            seckillAdornmentService.query().eq("adornment_id", adornmentId).oneOpt().ifPresent(seckillAdornment -> {
+                // 7.创建订单
+                adornmentOrder.setPayValue(seckillAdornment.getPayValue());
+                adornmentOrder.setStatus(1);
+                save(adornmentOrder);
+            });
+//            // 7.创建订单
+//            save(adornmentOrder);
         } finally {
             // 释放锁
             redisLock.unlock();
         }
+    }
+
+    @Resource
+    private UserService userService;
+
+    @Override
+    public Result payOrder(String orderId) {
+        // 创建锁对象
+        RLock redisLock = redissonClient.getLock("lock:order:pay:" + orderId);
+        // 尝试获取锁
+        boolean isLock = redisLock.tryLock();
+        // 判断
+        if (!isLock) {
+            // 获取锁失败，直接返回失败或者重试
+            log.error("不允许重复下单！");
+            return Result.fail("订单已经支付");
+        }
+
+        try {
+            // 1.查询订单
+            AdornmentOrder order = getById(orderId);
+            // 2.判断订单状态
+            if (order == null || order.getStatus() != 1) {
+                // 订单已经支付
+                return Result.fail("订单已经支付");
+            }
+            // 3. 查询用户余额
+            userService.query().eq("id", order.getUserId()).oneOpt().ifPresent(user -> {
+                if (user.getBalance().compareTo(order.getPayValue()) < 0) {
+                    // 余额不足
+                    throw new RuntimeException("余额不足");
+                }
+                // 4.扣减余额
+                userService.update().setSql("balance = balance - " + order.getPayValue()).eq("id", order.getUserId()).update();
+                // 5.修改订单状态
+                update().set("status", 2).eq("id", order.getId()).update();
+            });
+        } finally {
+            // 释放锁
+            redisLock.unlock();
+        }
+
+        return Result.ok();
     }
 
     @Override
@@ -139,6 +190,7 @@ public class AdornmentOrderServiceImpl extends ServiceImpl<AdornmentOrderMapper,
             setId(orderId);
             setUserId(userId);
             setAdornmentId(adornmentId);
+//            setPayValue(new BigDecimal(0));
             setStatus(1);
         }};
         // 先发送延迟队列消息，再发送订单消息；保证订单一定会被砍

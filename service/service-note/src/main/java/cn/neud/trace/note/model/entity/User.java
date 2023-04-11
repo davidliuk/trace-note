@@ -55,7 +55,7 @@ public class User implements Serializable {
     /**
      * 代币余额
      */
-    private Double token;
+    private Long balance;
 
     /**
      * 用户角色：user/admin/ban

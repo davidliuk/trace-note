@@ -149,7 +149,7 @@ public class NoteServiceImpl extends ServiceImpl<NoteMapper, Note> implements No
         note.setUserId(user.getId());
         // 2.保存留言笔记
         boolean isSuccess = save(note);
-        if(!isSuccess){
+        if (!isSuccess) {
             return Result.fail("新增笔记失败!");
         }
         // 3.查询笔记作者的所有粉丝 select * from tb_follow where follow_user_id = ?
@@ -187,9 +187,9 @@ public class NoteServiceImpl extends ServiceImpl<NoteMapper, Note> implements No
             ids.add(Long.valueOf(tuple.getValue()));
             // 4.2.获取分数(时间戳）
             long time = tuple.getScore().longValue();
-            if(time == minTime){
+            if (time == minTime) {
                 os++;
-            }else{
+            } else {
                 minTime = time;
                 os = 1;
             }

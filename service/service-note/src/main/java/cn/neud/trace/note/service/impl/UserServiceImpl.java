@@ -201,12 +201,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 5.写入Redis SETBIT key offset 1
         stringRedisTemplate.opsForValue().setBit(key, dayOfMonth - 1, true);
         // 6.赠送10代币
-        update().setSql("token = token + 10").eq("id", userId).update();
+        update().setSql("balance = balance + 10").eq("id", userId).update();
         // 7.判断是否是7的倍数，是否是连续签到7天
         int signCount = (Integer) signCount().getData();
         if (signCount % 7 == 0) {
             // 7.额外赠送50代币
-            update().setSql("token = token + 50").eq("id", userId).update();
+            update().setSql("balance = balance + 50").eq("id", userId).update();
         }
         return Result.ok();
     }

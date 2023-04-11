@@ -1,23 +1,11 @@
-# 知行 - trace
+# 雁过留痕 - trace note
 
-## 模板功能
+## 后端项目介绍
 
-- Spring Boot 2.7.0（贼新）
-- Spring MVC
-- MySQL 驱动
-- MyBatis
-- MyBatis Plus
-- Spring Session Redis 分布式登录
-- Spring AOP
-- Apache Commons Lang3 工具类
-- Lombok 注解
-- Swagger + Knife4j 接口文档
-- Spring Boot 调试工具和项目处理器
-- 全局请求响应拦截器（记录日志）
-- 全局异常处理器
-- 自定义错误码
-- 封装通用响应类
-- 示例用户注册、登录、搜索功能
-- 示例单元测试类
+一款基于地点的增强现实社交应用。用户可以在附近 Trace 场景中放置 Note 心得，并可以连续签到获取代币、抢购个性化装扮。
 
-访问 localhost:7529/api/doc.html 就能在线调试接口了，不需要前端配合啦~
+- 利用 AOP 实现注解校验用户登陆状态及用户权限。使用 Redis 实现分布式 Session，解决集群间登录态同步问题；
+- 使用模版模式实现了通用缓存访问静态方法，并解决了缓存雪崩、缓存穿透和缓存击穿的问题。
+- 使用 Redis 的 Geo 数据结构存储附近 Trace，并使用 Geo Search 命令实现高性能 Trace 查询及按距离排序。
+- 使用 Redis Set 数据结构实现用户关注、共同关注功能，并使用 Redis AOF 持久化防止关注数据丢失。
+- 使用 Lua 脚本实现饰品库存预检解决了超卖问题、实现一人一单。通过 RabbitMQ 实现异步订单创建、超时取消订单。

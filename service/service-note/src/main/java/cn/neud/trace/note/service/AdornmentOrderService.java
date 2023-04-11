@@ -20,4 +20,5 @@ public interface AdornmentOrderService extends IService<AdornmentOrder> {
 
     void createAdornmentOrder(AdornmentOrder adornmentOrder);
 
+    Result payOrder(String orderId);
 }
