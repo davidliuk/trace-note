@@ -1,10 +1,10 @@
 spring:
   application:
-    name: knownact-sms
+    name: trace-sms
   # DataSource Config
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://123.57.29.205:3306/knownact
+    url: jdbc:mysql://123.57.29.205:3306/trace
     username: root
     password: DavidLiu7
   mvc:

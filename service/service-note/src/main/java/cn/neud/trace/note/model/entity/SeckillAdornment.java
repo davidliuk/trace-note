@@ -1,0 +1,70 @@
+package cn.neud.trace.note.model.entity;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+/**
+ * <p>
+ * 秒杀装扮物表，与装扮物是一对一关系
+ * </p>
+ *
+ * @author David
+ * @since 2022-01-04
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+@TableName("tb_seckill_adornment")
+public class SeckillAdornment implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 关联的装扮物的id
+     */
+    @TableId(value = "adornment_id", type = IdType.INPUT)
+    private Long adornmentId;
+
+    /**
+     * 库存
+     */
+    private Integer stock;
+
+    /**
+     * 原价金额
+     */
+    private Long payValue;
+
+    /**
+     * 实际支付金额
+     */
+    private Long actualValue;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
+
+    /**
+     * 生效时间
+     */
+    private LocalDateTime beginTime;
+
+    /**
+     * 失效时间
+     */
+    private LocalDateTime endTime;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
+
+}

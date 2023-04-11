@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>knownact-parent</artifactId>
+        <artifactId>trace-note</artifactId>
         <groupId>cn.neud</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -15,8 +15,6 @@
     <modules>
         <module>sms-client</module>
         <module>oss-client</module>
-        <module>user-client</module>
-        <module>feed-client</module>
     </modules>
 
     <properties>

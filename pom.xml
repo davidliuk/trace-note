@@ -10,10 +10,10 @@
         <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.neud</groupId>
-    <artifactId>knownact-parent</artifactId>
+    <artifactId>trace-note</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>knownact-parent</name>
-    <description>知行 know and act</description>
+    <name>trace-note</name>
+    <description>雁过留痕 - trace note</description>
     <properties>
         <java.version>1.8</java.version>
         <hutool.version>5.7.22</hutool.version>

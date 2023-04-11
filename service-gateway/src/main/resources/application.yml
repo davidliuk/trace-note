@@ -32,24 +32,24 @@ spring:
         namespace: ldw
     gateway:
       routes:
-        - id: knownact-user
-          uri: lb://knownact-user
+        - id: trace-user
+          uri: lb://trace-user
           predicates:
             - Path=/api/user/**
-        - id: knownact-post
-          uri: lb://knownact-post
+        - id: trace-post
+          uri: lb://trace-post
           predicates:
             - Path=/api/post/**
-        - id: knownact-feed
-          uri: lb://knownact-feed
+        - id: trace-feed
+          uri: lb://trace-feed
           predicates:
             - Path=/api/feed/**
-        - id: knownact-oss
-          uri: lb://knownact-oss
+        - id: trace-oss
+          uri: lb://trace-oss
           predicates:
             - Path=/api/oss/**
-        - id: knownact-sms
-          uri: lb://knownact-sms
+        - id: trace-sms
+          uri: lb://trace-sms
           predicates:
             - Path=/api/sms/**
       globalcors:

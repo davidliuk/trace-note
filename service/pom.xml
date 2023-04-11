@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>knownact-parent</artifactId>
+        <artifactId>trace-note</artifactId>
         <groupId>cn.neud</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -15,11 +15,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>service-user</module>
-        <module>service-post</module>
         <module>service-oss</module>
-        <module>service-feed</module>
         <module>service-sms</module>
+        <module>service-note</module>
     </modules>
 
     <properties>
@@ -76,6 +74,11 @@
             <version>1.32.0</version>
         </dependency>
         <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.13.6</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
@@ -119,11 +122,6 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>net.librec</groupId>-->
-        <!--            <artifactId>hamcrest-all</artifactId>-->
-        <!--            <version>1.1</version>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
